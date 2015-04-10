@@ -1,0 +1,20 @@
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DROP procedure IF EXISTS `new_procedure`;
+
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `new_procedure`()
+BEGIN
+declare i int;
+set i=12;
+repeat
+update products set ordernumber=(select sum(userordernumber) from all_orders where productid=i),orderamount=(select sum(userorderamount) from all_orders where productid=i) where id=i;
+set i = i+1;
+until i >= 91
+end repeat;
+END$$
+
+DELIMITER ;

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>易订宝</title>
+	<meta charset="utf-8"/>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+
+</head>
+<body>
+<div class="global">
+	<% include nav %>
+	<div class="main">
+		
+		<div class="orderByStyle">
+			<div class="orderByStyleTitle">
+				<div class="orderByStyleTitleWord1">轻松订货 按款订货</div>
+
+			</div>
+			<div class="orderByStyleBody">
+				<div class="orderByStyleImage"><img src="<%=data['Pictures'] %>" class="orderByStyleImage">
+				</div>
+
+				<div class="orderByStyleData">
+					<div class="orderByStyleDataTop">
+						<table class="orderByStyle">
+							<tr>
+								<td class="tdTextLeft">编号：<%=data['Id'] %> <%=data['ProductType'] %></td>
+								<td class="tdTextLeft">品名：<%=data['ProductName'] %></td>
+								<td class="tdTextLeft">起订量:</td>
+								<td class="tdTextLeft">
+								<% if(last !== undefined ){ %>
+									<a href="orderByStyle?ProductCode=<%=last['ProductCode'] %>"> 上一款</a>
+								<% } else{ %>
+									没有了
+								<% } %>
+								</td>
+							</tr>
+							<tr>
+								<td class="tdTextLeft">零售价：<%=data['Price'] %></td>
+								<td class="tdTextLeft">我已定：</td>
+								<td class="tdTextLeft">总定数：</td>
+								<td class="tdTextLeft">
+								<% if(next !== undefined ){ %>
+									<a href="orderByStyle?ProductCode=<%=next['ProductCode'] %>"> 下一款</a>
+								<% } else{ %>
+									没有了
+								<% } %>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="orderByStyleDataMiddle">
+						<table class="orderByStyle">
+						<%  var rolNum = 5;  var size = String(data['size']).split(","); var lenSize = size.length;   var color = String(data['color']).split(","); var lenColor = color.length; var tempTimes = Math.ceil(lenSize/rolNum); var tempI1 = 0;var tempI2 = 0 ;var tempJ = 0;%>
+
+						<% while(tempJ < tempTimes){ %>
+							<tr>
+								<td class="tdTextCenter">颜色/尺寸</td>
+
+								<% for(var i = 0;i<rolNum ;i++) { %>
+								
+								<% if(tempI1<lenSize){ %>
+									<td class="tdTextCenter"><%=size[tempI1] %></td>
+								<% } else{ %>
+									<td class="tdTextCenter"></td>
+								<% } %>
+
+							<% tempI1 ++; } %>
+							<% if(tempJ == 0) { %>
+								<td class="tdTextCenter">小记</td>
+							<% }else{ %>
+								<td class="tdTextCenter"></td>
+							<% } %>
+								<!-- <td class="tdTextCenter"></td> -->
+							</tr>
+
+							<%
+							for(var i = 0;i<lenColor;i++) { var tempInputRol = tempI2; %>
+							<tr>
+								<td class="tdTextCenter"><%=color[i] %></td>
+								
+								<% for(var j = 0;j<rolNum ;j++) { %>
+									<% if(tempInputRol < lenSize) { %>
+								<td class="tdTextCenter"><input class="num" value="<%=color[i] %> <%=size[tempInputRol] %>"></td>
+									<% }  else { %>
+								<td class="tdTextCenter"></td>
+									<% } %>
+								<%  tempInputRol ++; } %>
+
+								<td class="tdTextCenter">0</td>
+								<!-- <td class="tdTextCenter">复制 粘贴</td> -->
+							</tr>
+							<% } %>
+
+						<% tempJ ++; tempI2 = tempI1;} %>
+
+
+							<tr>
+								<td class="tdTextLeft"></td>
+
+								<% for(var i = 0;i<rolNum-1;i++) {%>
+								<td class="tdTextCenter"></td>
+								
+							<% } %>
+								<td class="tdTextRight total">总计：</td>
+								<td class="tdTextCenter total">0</td>
+								<!-- <td class="tdTextLeft"></td> -->
+							</tr>
+						</table>
+					</div>
+					<div class="orderByStyleDataBottom">
+						<a href=""><div class="orderByStyleCollect">收藏</div></a>
+						<a href=""><div class="orderByStyleCancle">取消已订</div></a>
+						<a href=""><div class="orderByStyleSubmit">提交订单</div></a>
+						<a href=""><div class="orderByStyleContinue">继续订</div></a>
+					</div>
+				</div>
+			</div>
+			<div class="recommend">
+				<div class="recommendWord">产品推荐</div>
+				
+			</div>
+			<div class="detail">
+				<div class="detailWord">详情</div>
+				<div class="detailTable">
+				<table class="detailTable">
+					<tr>
+						<td class="tdTextLeft">品牌：</td>
+						<td class="tdTextLeft">货号：<%=data['ProductCode'] %></td>
+						<td class="tdTextLeft">面料：</td>
+						<td class="tdTextLeft">款名：<%=data['ProductName'] %></td>
+					</tr>
+					<tr>
+						<td class="tdTextLeft">零售价：<%=data['Price'] %></td>
+						<td class="tdTextLeft">价格带：<%=data['PriceZone'] %></td>
+						<td class="tdTextLeft">款别：<%=data['ProductType'] %></td>
+						<td class="tdTextLeft">主题：<%=data['ProductSerial'] %></td>
+					</tr>
+					<tr>
+						<td class="tdTextLeft">品类：<%=data['ProductClass'] %></td>
+						<td class="tdTextLeft">设计者：<%=data['Designer'] %></td>
+						<td class="tdTextLeft">波段：<%=data['Mucai'] %></td>
+						<td class="tdTextLeft"></td>
+					</tr>
+					<tr>
+						<td class="tdTextLeft">卖点：<%=data['Advantages'] %></td>
+						<td class="tdTextLeft"></td>
+						<td class="tdTextLeft"></td>
+						<td class="tdTextLeft"></td>
+					</tr>
+				</table>
+				</div>
+				
+			</div>
+			<div class="comment">
+				<div class="commentWord">输入您对此商品的意见和建议</div>
+				
+			</div>
+		</div>
+		<% include menu %>
+	</div>
+</div>
+
+</body>
+</html>

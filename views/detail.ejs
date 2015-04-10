@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>易订宝</title>
+	<meta charset="utf-8"/>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script type="text/javascript" src="/javascripts/main.js" ></script>
+</head>
+<body>
+<div class="global">
+	<% include nav %>
+	<% include menu %>
+	<div class="detailTitle">
+			<% var curPageWord = "按款订货";
+			switch(curPage)
+			{
+				case 'alreadyOrdered':
+				{
+					curPageWord = "已订款";
+				}
+				break;
+				case 'notOrder':
+				{
+					curPageWord = "未定款";
+				}
+				break;
+				case 'invalidPd':
+				{
+					curPageWord = "下架款";
+				}
+				break;
+				case 'collectionSet':
+				{
+					curPageWord = "我的收藏";
+				}
+				break;
+				case 'deleted':
+				{
+					curPageWord = "我的删除";
+				}
+				break;
+			} %>
+				<div class="detailTitleWord1">轻松订货 <%=curPageWord %></div>
+				<div class="searchByProductCode">
+				<form method="GET" action="searchByCode">
+					<input type="text" class="searchInput" name="ProductCode" required="required" placeholder="输入货号" >
+					<input type="submit" value="搜索" class="searchButton">
+				</form>
+				</div>
+				<a href="orderByStyle" > <div class="detailTitleWord2"> 主页</div></a>
+				
+				
+				
+
+			</div>
+	<div class="main">
+		
+		<div class="detail">
+			<% var size = String(data['size']).split(",");
+			var lenSize = size.length;
+			var rolNum = 8;
+			rolNum = lenSize < rolNum ? lenSize+3 : rolNum;
+			var color = String(data['color']).split(",");
+			var lenColor = color.length;
+			var tempTimes = Math.ceil(lenSize/rolNum);
+			var tempI1 = 0;
+			var tempI2 = 0 ;
+			var tempJ = 0;
+			var inputValue = [];
+			var myOrderNum = 0;
+			
+			for(var i = 0;i<lenColor;i++)
+			{
+				for(var j = 0;j<lenSize;j++)
+				{
+					var curColor = color[i];
+					var curSize = size[j];
+					var curOrdered = "0";
+
+					for(var k = 0;k<ordered.length;k++)
+					{
+						
+						
+						if(ordered[k]['Color'] == curColor)
+						{
+							
+							for(var l = 0;l<ordered[k]['UserOrderDetails'].split(',').length;l++)
+							{
+								if(String(ordered[k]['UserOrderDetails'].split(',')[l]).split(':')[0] == curSize )
+								{
+									curOrdered = String(ordered[k]['UserOrderDetails'].split(',')[l]).split(':')[1];
+									break;
+								}
+							}
+							break;
+						}
+					}
+					myOrderNum += Number(curOrdered);
+					inputValue.push([curColor,curSize,curOrdered]);
+					
+				}
+			}
+			%>
+
+
+			
+			<div class="detailBody">
+				<div class="detailImage"><img src="<%=data['Pictures'] %>" class="detailImage">
+				</div>
+
+				<div class="detailData">
+					<div class="detailDataTop">
+						<table class="detail">
+							<tr>
+								<td class="tdTextLeft">编号：<%=data['Id'] %> <%=data['ProductType'] %></td>
+								<td class="tdTextLeft">品名：<%=data['ProductName'] %></td>
+								<td class="tdTextLeft">起订量:<%=data['MinOrder'] %></td>
+								<td class="tdTextLeft">
+								<% if(last !== undefined ){ %>
+									<a href="detail?curPage=current&Id=<%=last['Id'] %>"> 上一款</a>
+								<% } else{ %>
+									没有了
+								<% } %>
+								</td>
+							</tr>
+							<tr>
+								<% var disStr = userInfo[0]['Discount'];
+								var disA = disStr.split(',');
+								var dis = 0;
+								for(var i = 0;i<disA.length;i++){
+								 	if(disA[i].split(':')[0] == data['ProductClass'])
+								 	{
+								 		dis = disA[i].split(':')[1];
+								 		break;
+									}
+									else
+									{
+										if(disA[i].split(':')[0] == "通常")
+											dis = disA[i].split(':')[1];
+									}
+								}
+									 %>
+								<td class="tdTextLeft">零售价：<%=data['Price'] %><% if(userInfo[0]['DiscountVisible'][0] == 1 ){ %>(<%=dis %>折) <% } %></td>
+
+								
+
+								<td class="tdTextLeft">我已定：<%=myOrderNum %>(￥<%=(myOrderNum*data['Price']*dis/10).toFixed(2) %>)</td>
+								<td class="tdTextLeft">总定数：<%=data['OrderAmount'] %>件</td>
+								<td class="tdTextLeft">
+								<% if(next !== undefined ){ %>
+									<a href="detail?curPage=current&Id=<%=next['Id'] %>"> 下一款</a>
+								<% } else{ %>
+									没有了
+								<% } %>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<form action="order" method="post">
+					<input type="text" name="Id" value="<%=data['Id'] %>" class="pageSelect" >
+					<div class="detailDataMiddle">
+						<table class="detail">
+						
+
+						<% while(tempJ < tempTimes){ %>
+							<tr>
+								<td class="tdTextCenter">颜色/尺寸</td>
+
+								<% var tempRolNum = rolNum;
+								if(tempJ == tempTimes-1)
+								tempRolNum = rolNum - 3;
+								 for(var i = 0;i<tempRolNum ;i++) { %>
+								
+								<% if(tempI1<lenSize){ %>
+									<td class="tdTextCenter"><%=size[tempI1] %></td>
+								<% } else{ %>
+									<td class="tdTextCenter"></td>
+								<% } %>
+
+							<% tempI1 ++; } %>
+							<% if(tempJ == tempTimes-1) { %>
+								<td class="tdTextCenter">小记</td>
+								<td class="tdTextCenter"></td>
+								<td class="tdTextCenter"></td>
+							<% } %>
+								
+							
+								
+							</tr>
+
+							<%
+							for(var i = 0;i<lenColor;i++) { var tempInputRol = tempI2; %>
+							<tr>
+								<td class="tdTextCenter"><%=color[i] %></td>
+								
+								<% var tempRolNum = rolNum;
+								if(tempJ == tempTimes-1)
+								tempRolNum = rolNum - 3;
+								var rolTotal = 0; 
+								 for(var j = 0;j<tempRolNum ;j++) { 
+								 	var CurInputV = "0"; 
+								 	%>
+									<% if(tempInputRol < lenSize ) { %>
+									<% for(var k = 0;k<lenColor*lenSize;k++)
+									{
+										if(inputValue[k][0] == color[i] && inputValue[k][1] == size[tempInputRol] )
+										{
+											CurInputV = inputValue[k][2];
+											rolTotal += Number(CurInputV);
+											break;
+										}
+					
+									}  %>
+										<td class="tdTextCenter">
+										<input type="number" class="num" name="color<%=i %>size<%=tempInputRol %>" value="<%=CurInputV %>" id = "color<%=i %>size<%=tempInputRol %>" onchange="changeOrder()"></td>
+
+
+
+									<% } else { %>
+								<td class="tdTextCenter"></td>
+									<% } %>
+								<%  tempInputRol ++; } if(tempJ == tempTimes-1){ %>
+
+								<td class="tdTextCenter" id="rolTotal<%=i %>"><%=rolTotal %></td>
+								<td class="tdTextCenter copyAndPaste" id="<%=i %>" onclick="copy(this)" >复制</td>
+								<td class="tdTextCenter copyAndPaste" id="<%=i %>" onclick="paste(this)">粘贴</td>
+								<% } %>
+							</tr>
+							<% } %>
+
+						<% tempJ ++; tempI2 = tempI1;} %>
+
+
+							<tr>
+								<td class="tdTextLeft"></td>
+
+								<% var tempRolNum = rolNum - 4; for(var i = 0;i<tempRolNum;i++) {%>
+								<td class="tdTextCenter"></td>
+								
+							<% } %>
+								<td class="tdTextRight total">总计：</td>
+								<td class="tdTextCenter total" id="total" ><%=myOrderNum %></td>
+								<td class="tdTextLeft"></td>
+								<td class="tdTextLeft"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="detailDataBottom">
+						<div class="detailCollect">
+						<% var collection = userInfo[0]['CollectionSet'].split(',');
+						
+						var tempHref = "collection?Id="+data['Id'];
+						var words2show = "收藏";
+						for(var i = 0;i<collection.length;i++)
+						{
+							if(collection[i] == data['Id'])
+							{
+								if(curPage == "collectionSet" && next != undefined)
+								{
+									tempHref = "collectionCancle?Id="+data['Id']+"&nextId="+next['Id'];
+								}
+								else if(curPage == "collectionSet" && next == undefined)
+									tempHref = "collectionCancle?Id="+data['Id']+"&nextId=orderByStyle";
+								else
+									tempHref = "collectionCancle?Id="+data['Id'];
+								words2show = "已收藏";
+								break;
+							}
+							
+						}
+						%>
+						<a href="<%=tempHref %>"><%=words2show %></a>
+						</div>
+						<a href=""><div class="detailCancle">取消已订</div></a>
+						<div class="detailSubmit"><input type="submit" value="提交订单"></div>
+						
+						<% if(next !== undefined ){ %>
+									<a href="detail?curPage=current&Id=<%=next['Id'] %>"><div class="detailContinue">继续订</div></a>
+								<% } else{ %>
+								<div class="detailContinue">没有了</div>
+									
+								<% } %>
+					</div>
+					</form>
+				</div>
+			</div>
+			<div class="recommend">
+				
+				
+					<% if(reccomendData != null) { for(var i = 0;i<reccomendData.length;i++){  %>
+						<div class="productMatch">
+							<a href="detail?curPage=orderByStyle&Id=<%=reccomendData[i]['match']['Id'] %>" class="block">
+							<div class="productTop">
+								<div class="productNumMatch">推荐搭配</div>
+							</div>
+							
+							<div class="productPicMatch">
+								<img src="<%=reccomendData[i]['match']['MatchPicture'].split(',')[0] %>" class="matchPicture">
+							</div>
+							</a>
+						</div>
+						
+						<div class="recLink" ><span class="bootFont" >=</span></div>
+						<% for(var j = 0;j<reccomendData[i]['matchProduct'].length;j++){ var data1 = reccomendData[i]['matchProduct'][j]; %>
+
+						<% include blockMatch %>
+							<% if(j != reccomendData[i]['matchProduct'].length-1) { %>
+							+
+							<% } %>
+						<% } %>
+					
+
+					<% }} else{ %>
+
+
+					<% } %>
+				
+			</div>
+			<div class="information">
+				<div class="informationWord">详情</div>
+				<div class="informationTable">
+				<table class="informationTable">
+					<tr>
+						<td class="tdTextLeft">品牌：<%=data['Brand'] %></td>
+						<td class="tdTextLeft">货号：<%=data['ProductCode'] %></td>
+						<td class="tdTextLeft">面料：</td>
+						<td class="tdTextLeft">款名：<%=data['ProductName'] %></td>
+					</tr>
+					<tr>
+						<td class="tdTextLeft">零售价：<%=data['Price'] %></td>
+						<td class="tdTextLeft">价格带：<%=data['PriceZone'] %></td>
+						<td class="tdTextLeft">款别：<%=data['ProductType'] %></td>
+						<td class="tdTextLeft">主题：<%=data['ProductSerial'] %></td>
+					</tr>
+					<tr>
+						<td class="tdTextLeft">品类：<%=data['ProductClass'] %></td>
+						<td class="tdTextLeft">设计者：<%=data['Designer'] %></td>
+						<td class="tdTextLeft">波段：<%=data['Mucai'] %></td>
+						<td class="tdTextLeft"></td>
+					</tr>
+					<tr>
+						<td class="tdTextLeft">卖点：<%=data['Advantages'] %></td>
+						<td class="tdTextLeft"></td>
+						<td class="tdTextLeft"></td>
+						<td class="tdTextLeft"></td>
+					</tr>
+				</table>
+				</div>
+				
+			</div>
+			<div class="comment">
+				<form action="comment" method="post">
+					<textarea class="commentWord" placeholder="欢迎品论..." name="comments"></textarea>
+					<input name="Id" class="pageSelect" value="<%=data['Id']  %>">
+					<input type="submit" value="发表" class="commentButton">
+				</form>
+
+				
+				<h3 class="commentWordTitle">评论：</h3>
+				<% for(var i = 0;i<comments.length;i++){ %>
+					<div class="commentWord">
+					<div class="commentsAthor"><%=comments[i]['Author'] %>：</div>
+					<div class="comments"><%=comments[i]['Comments'] %></div>
+					</div>
+				<% } %>
+				
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+</body>
+</html>

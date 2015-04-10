@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title ><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+
+	<script type="text/javascript">
+	function pwdOnblurClass()
+	{
+		document.getElementById("passwordInput").className = "inputPassword";
+		document.getElementById("passwordInput").placeholder = "请输入密码";
+	
+	}
+
+	</script>
+</head>
+<body class="indexBackground">
+
+<div class="global">
+	<div class="indexHeader">
+		<div class="indexTitltWords">
+		<h1 class="headTitle" >易订宝</h1>
+		</div>
+	</div>
+	<div class="indexLoginArea" >
+		<div class="indexLoginDiscribe">
+			<div class="indexWords1">安心</div>
+			<div class="indexWords2">高效</div>
+			<div class="indexWords3">省心</div>
+			<div class="indexWords4">省力</div>
+			<div class="indexWords1">安心</div>
+			<div class="indexWords2">高效</div>
+			<div class="indexWords3">省心</div>
+			<div class="indexWords4">省力</div>
+			<div class="indexWords1">安心</div>
+			<div class="indexWords2">易订宝移动订货会系统特点：
+1.无线手持，不受场地限制；
+2.产品图片浏览直观，数据加密处理，更加安全；
+3.操作简便、直观，订单修改方便，操作人员不需培训；
+4.实时在线查看订货排名和已订产品，防止漏订、错订；
+5.搭配订货、必定款设置，使订货更智能；
+6.订货品类、金额、结构、价格段图表化实施智能统计、分析，帮助科学订货；
+7.大幅度节省订货费用开支，提高订货效率，提升企业形象；</div>
+	
+		</div>
+		<div class="indexLoginForm">
+			<div class="loginInput">
+				<form class="login" method="POST" action = "login">
+					<div class="inputName">
+						<label>贵宾名：</label>
+						<input type="text" name="LoginUserName" id="usernameInput" class="inputName" placeholder="请输入贵宾名" id="usernameInput" value="<%=LoginUserName %>" required = "true">
+					</div>
+					
+					<div class="inputPassword" >
+						<label>&nbsp&nbsp 密码：</label>
+						<input type="password" class="<%= inputClass %>" name="password"  placeholder="<%= passwordState %>" onblur="pwdOnblurClass()" id="passwordInput" required = "true"></input>
+					</div>
+
+					<div class="buttonLogin">
+						<button class="loginButton" >登陆</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="indexFooter">
+		
+		<div class="indexFooter_2">Copyright @ 2014 杭州快邦网络科技有限公司 zylq</div>
+	</div> -->
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "chart":{
+   "piefillalpha":"44",
+    "pieborderthickness":"1",
+    "piebordercolor":"FFFFFF",
+    "usehovercolor":"1",
+    "bgcolor":"ffffff",
+    "basefontcolor":"000000",
+    "caption":"汇总"
+  },
+      "category":[{
+          "label":"His Friends",
+          "value":"41",
+          "category":[{
+              "label":"Best Friends",
+              "value":"10"
+            },
+            {
+              "label":"Good Friends",
+              "value":"10"
+            },
+            {
+              "label":"Friends",
+              "value":"8"
+            },
+            {
+              "label":"Haven't met",
+              "value":"6"
+            },
+            {
+              "label":"Acquaintances",
+              "value":"7"
+            }
+          ]
+        },
+        {
+          "label":"Our Mutual Friends",
+          "value":"54",
+          "category":[{
+              "label":"Best Friends",
+              "value":"10"
+            },
+            {
+              "label":"Good Friends",
+              "value":"20"
+            },
+            {
+              "label":"Friends",
+              "value":"9"
+            },
+            {
+              "label":"Haven't met",
+              "value":"9"
+            },
+            {
+              "label":"Acquaintances",
+              "value":"6"
+            }
+          ]
+        }
+      ]
+}

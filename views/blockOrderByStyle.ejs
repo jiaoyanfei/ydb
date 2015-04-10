@@ -1,0 +1,42 @@
+<div class="product">
+	<% var price="Price";
+	var Id = "Id";
+	if(curPage == "alreadyOrdered" || curPage=="deleted")
+	{
+		//price = "ProductPrice";
+		Id = "Id";
+	}
+	
+	else
+	{
+		price = "Price";
+	}
+	%>
+	
+	<a href="detail?Id=<%=data[i][Id] %>" class="block">
+	<div class="productTop">
+		<div class="productNum">货号：<%=data[i]['ProductCode'] %></div>
+		<div class="productStyle"><%=data[i]['ProductType'] %>款</div>
+	</div>
+	
+	<div class="productPic">
+		<img src="<%=String(data[i]['Pictures']).split(',')[0] %>" class="productPic">
+	</div>
+	<div class="productBottom">
+		
+		
+		<div class="price">￥ <%=data[i][price] %></div>
+		<% var userOrderAmount = 0;
+		for(var j = 0;j<ordered.length;j++)
+		{
+			if(ordered[j]['ProductId'] == data[i]['Id'])
+			{
+				userOrderAmount = ordered[j]['AllColorsOrderNumber'];
+				break;
+			}
+		}
+		  %>
+		<div class="orderNum">订数：<%=userOrderAmount %>/<%=data[i]['OrderAmount'] %></div>
+	</div>
+	</a>
+</div>

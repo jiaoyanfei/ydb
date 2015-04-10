@@ -1,0 +1,15 @@
+<html>
+  <head>        
+            <title>My First chart using FusionCharts XT</title>         
+     <script type="text/javascript" src="FusionCharts.js">
+    </script>
+   <body topmargin=0 marginheight=0 leftmargin=0>     
+      <div id="chartContainer" ></div>  
+      <script type="text/javascript">
+	      var myChart = new FusionCharts( "MultiLevelPie.swf", "myChartId", "400", "300", "0","1" );
+	      myChart.setJSONUrl("drawChart.Data.json");
+	      myChart.render("chartContainer");
+    </script> 
+   
+  </body> 
+</html>

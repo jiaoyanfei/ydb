@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>易订宝</title>
+	<meta charset="utf-8"/>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<div class="global">
+	<% include nav %>
+	<% include menu %>
+	<% include rank %>
+	<div class="main">
+		
+		<div class="productsList">
+			
+			<% var pageNum = Math.ceil(data.length/pageLength); if(page > pageNum){ page = pageNum; }%>
+			<% if( data.length == 0) { %>
+			<%  include notFound %>
+			
+			<% } else {  for(var i = (page-1)*pageLength;i<page*pageLength && i <data.length ;i++){ %>
+			<% include blockOrderByStyle %>
+			<% } %>  <% include page %>  <% } %>	
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

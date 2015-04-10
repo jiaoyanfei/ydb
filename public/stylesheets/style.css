@@ -1,0 +1,923 @@
+@font-face {
+	font-family: huawenxinwei;
+	src: url('fonts/STXINWEI.EOT'),
+	url('fonts/STXINWEI.TTF');
+
+}
+
+@font-face {
+	font-family: bootStrapFont;
+	src: url('fonts/glyphicons-halflings-regular.ttf'),
+	 url('fonts/glyphicons-halflings-regular.eot'); /* IE9+ */
+}
+
+body {
+	/*padding: 50px;*/
+	font: 15px Verdana, 'Microsoft YaHei',sans-serif;
+	min-width: 970px;
+
+	
+}
+
+body.indexBackground{
+	/*background:url("../images/background.jpg");*/
+	background:url("../images/product26.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	}
+
+a {
+	background: transparent;
+	text-decoration:none;
+
+}
+
+a.menu{
+	color: #333;
+}
+
+a.menu:hover{
+
+	text-decoration:underline;
+}
+a.block{
+	color: #333;
+}
+
+a.footer{
+	background: transparent;
+	text-decoration:none;
+	
+	color: inherit;
+	font-size: 15px;
+}
+a.footer:hover{
+	text-decoration: underline;}
+footer{
+	border-top: solid 1px #777;
+	border-bottom: solid 1px #777;
+	margin: 50px -5px 0px -5px;
+	text-align: center;
+	
+	font-family: "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+}
+div.container{
+	line-height: 1.4285;
+	display: inline-block;	
+	/*width: 1170px;*/
+	padding-right:15px;
+	padding-left:15px;
+	margin-right:auto;
+	margin-left:auto
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box
+}
+div.footer-top{
+	display: inline-block;
+}
+div.col-sm-6{
+	display: inline-block;
+	text-align: left;
+	color: #777;
+	vertical-align: top;
+	
+}
+div.col-sm-6-left{
+	margin-right: 180px;
+}
+div.col-xs-3{
+	display: inline-block;
+	margin-right: 40px;
+	vertical-align: top;
+	max-width: 100px;
+}
+
+ul.list-unstyled{
+	padding-left:0;
+	margin-left:-5px;
+	list-style: none;
+	color: #777;
+}
+h2.footer,h4.footer{
+	color: #563d7c;
+	font-weight: 500;
+}
+
+div.global{
+
+	
+	margin: auto  0 auto 0;
+	
+
+}
+
+div.indexHeader{
+	margin: 0px auto 0px auto;
+	
+}
+div.indexTitltWords{
+	text-align: left;
+}
+
+div.indexLoginArea{
+	margin: 0px auto 0 auto;
+	height: 420px;
+	width: 930px;
+	/*display: inline-block;*/
+	
+	
+	/*text-align: center;*/
+}
+div.indexLoginDiscribe{
+	float: left;
+	display: inline;
+	width: 540px;
+	
+	background-color: white;
+	border-radius: 2px;
+	height: 100%;
+}
+
+div.indexWords1{
+	float: left;
+	display: inline-block;
+	height: 20%;
+	width: 50%;
+	background-color: gray;
+}
+div.indexWords2{
+	float: left;
+	display: inline-block;
+	height: 20%;
+	width: 50%;
+	/*background-color: gray;*/
+}
+div.indexWords3{
+	float: left;
+	display: inline-block;
+	height: 20%;
+	width: 50%;
+	/*background-color: red;*/
+}
+div.indexWords4{
+	float: left;
+	display: inline-block;
+	height: 20%;
+	width: 50%;
+	background-color: gray;
+}
+div.indexLoginForm{
+	float: right;
+	display: inline;
+	width: 370px;
+	height: 100%;
+	background-color: white;
+	border-radius: 2px;
+
+}
+
+div.loginInput{
+	width: 100%;
+	font-size: 16px;
+}
+div.inputName{
+	margin-top: 60px;
+	text-align: center;
+}
+
+div.inputPassword{
+	margin-top: 40px;
+	text-align: center;
+}
+
+div.buttonLogin{
+	margin-top: 65px;
+	
+	text-align: center;
+}
+
+div.indexFooter{
+	margin: 70px auto 0 auto;
+	text-align: center;
+}
+
+div.indexFooter_1{
+	font-family: "华文新魏",huawenxinwei;
+	font-size: 30px;
+	color:blue;
+	background-color: #aaa;
+	height: 40px;
+	padding-top: 10px;
+}
+div.indexFooter_2{
+	margin-top: 20px;
+
+	font-size: 22px;
+	color: #ccc;
+	font-family: "华文新魏",huawenxinwei;
+}
+input.login{
+	width: 230px;
+	height: 35px;
+	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(82,168,236,0.6);
+	border-radius: 2px;
+	border: solid 2px #ccc;
+	font-size: inherit;
+	font-family: 'Droid Sans', Verdana, 'Microsoft YaHei',sans-serif;
+}
+input.inputName {
+	width: 230px;
+	height: 35px;
+	border-radius: 2px;
+	border: solid 2px #ccc;
+	font-size: inherit;
+	font-family: 'Droid Sans', Verdana, 'Microsoft YaHei',sans-serif;
+}
+input.inputName:focus {
+	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(82,168,236,0.6);	
+}
+
+input.inputPassword{
+	width: 230px;
+	height: 35px;
+	border-radius: 2px;
+	border: solid 2px #ccc;
+	font-size: inherit;
+	font-family: 'Droid Sans', Verdana, 'Microsoft YaHei',sans-serif;
+}
+input.inputPassword:focus{
+	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(82,168,236,0.6);
+}
+input.inputPasswordWrong{
+	width: 230px;
+	height: 35px;
+	border: solid 2px;
+	color: red;
+	border-radius: 2px;
+	font-size: inherit;
+}
+
+button.loginButton{
+	width:160px;
+	height:35px;
+	font-size: 20px;
+	cursor: pointer;
+	border-radius: 10px;
+	border:none;
+	background:#ff9500;
+	color: white;
+	font-family: 'Droid Sans', Verdana, 'Microsoft YaHei',sans-serif;
+}
+button.loginButton:hover{
+
+	background:#ffaa00;
+	color: white;
+
+	}
+h1.headTitle{
+	color: orange;
+	font-family: "华文新魏",huawenxinwei;
+	font-size: 50px;
+	
+}
+
+
+div.nav{
+	position: fixed;
+	font-size:16px;
+	min-width: 1000px;
+	background-color: #ddd;
+	
+	width: 100%;
+	height: 40px;
+	top: 0px;
+	left: 0px;
+	Z-index:5;
+	
+}
+
+div.masterName{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-left: 50px;
+	float: left;
+	color: #444;
+	
+}
+div.masterName:hover{
+	background-color: #f40;
+}
+div.masterBill{
+	margin-top: 7px;
+	margin-left: 100px;
+	float: left;
+	color: #444;
+}
+div.masterLogout{
+	margin-top: 7px;
+	margin-right: 100px;
+	float: right;
+	color: #444;
+}
+
+div.main{
+	min-height: 600px;
+	margin: 120px auto 0 auto;
+
+	display: inline-block;
+}
+div.billRank{
+	position: fixed;
+	top:30px;
+	/*height: 80px;*/
+	/*background-color: white;*/
+	font-size: 40px;
+	font-weight: bolder;
+	text-align: left;
+	padding-left: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	
+	
+}
+
+div.rank{
+	/*border: solid 2px #777;*/
+	width: 80%;
+	min-width: 900px;
+	height: 28px;
+	position: fixed;
+	z-index: 5;
+	top: 90px;
+	background-color: lightblue;
+}
+.rankTop{
+	margin-top: 5px;
+}
+div.rankByBrand,div.rankByProductType,div.rankByMucai,
+div.rankByProductClass,div.rankByProductSerial,
+div.rankByOrderAmount{
+	float: left;
+	display: inline-block;
+	margin: 4px 2% auto 0;
+	
+}
+
+div.rankByOrderNumber{
+	float: left;
+	display: inline-block;
+	margin: 7px 0 auto 0;
+	
+}
+div.toHome{
+	margin-top: 5px;
+	
+	margin-left:10px; 
+	margin-bottom: 12px;
+}
+div.searchByProductCode{
+	float: right;
+	
+	
+	margin-right: 40px;
+	font-size: 15px;
+}
+input{
+	font: inherit;
+}
+input.searchInput{
+	height: 27px;
+	margin-top: 0px;
+	width: 90px;
+	
+	text-align: center;
+}
+input.searchButton{
+	height: 32px;
+	width: 50px;
+	
+	margin-left: -7px;
+	background-color: lightblue;
+	border:none;
+	
+}
+input.searchButton:hover{
+	cursor: pointer;
+}
+
+select.selectMain{
+	
+	font-family: Verdana, 'Microsoft YaHei',sans-serif;
+	font-size: inherit;
+	border:none;
+	width: 85px;
+	background-color: lightblue;
+}
+
+
+
+
+div.menu{
+	position: fixed;
+	width: 10%;
+	top: 100px;
+	min-width: 80px;
+	right: 20px;
+	padding-bottom:20px; 
+	
+	float: right;
+
+}
+
+div.menuFunction{
+	margin-top: 7px;
+	margin-left: 0px;
+	text-align: left;
+	margin-left: 20px;
+}
+
+div.menuWhioutFunc{
+	margin-top: 7px;
+	margin-left: 0px;
+	text-align: left;
+	margin-left: 5px;
+	color: gray;
+}
+a.list-group-item{
+	border-radius:0;
+	/*background: #27272b;*/
+	background-color: lightblue;
+	/*color:#ccc;*/
+	color: black;
+	border:0;
+	margin-top:1px;
+	display: block;
+	text-decoration: none;
+	padding:6px 0px;
+	text-align: center;
+}
+a.list-group-item:hover{
+	/*background:black;*/
+	/*color:white;*/
+}
+a {
+	color: #00B7FF;
+}
+div.productsList{
+	
+	width: 88%;
+	min-height: 450px;
+	display: inline-block;
+	
+}
+div.notFound{
+	font-size: 30px;
+	text-align: center;
+	margin-top: 200px;
+}
+div.productNotFound{
+	display: inline-block;
+	float: left;
+	width: 195px;
+	border: none;
+	margin:5px 5px 0px 0px;
+	padding: 10px 1px 10px 1px;
+	color: #f40;
+}
+div.product{
+	display: inline-block;
+	float: left;
+	width: 200px;
+	height: auto;
+	border: solid 2px white;
+	margin:5px 5px 0px 0px;
+	
+	color: #f40;
+}
+div.product:hover{
+	border-color: #f40;
+	
+}
+div.productNum{
+	display: inline-block;
+	float: left;
+	color: inherit;
+}
+div.productStyle{
+	display: inline-block;
+	float: right;
+}
+
+
+div.productTop{
+	
+	width: 100%;
+}
+div.productPic{
+	text-align: center;
+	width: 100%;
+	
+}
+div.productBottom{
+	margin-top: 5px;
+	
+}
+img.productPic{
+	max-width: 200px;
+	width: auto;
+	border: none;
+	height: 260px;
+}
+
+div.price{
+	display: inline-block;
+	float: left;
+	color: #f40;
+}
+div.orderNum{
+	display: inline-block;
+	float: right;
+}
+
+span.bootFont{
+	font-family: bootStrapFont;
+	
+	
+}
+
+div.detailMain{
+	min-height: 600px;
+	margin: 0 auto 0 auto;
+	display: inline-block;
+	
+}
+div.detail{
+	border: solid 2px lightblue;
+	border-radius: 2px;
+	min-width: 500px;
+	width: 87%;
+	min-height: 450px;
+	display: inline-block;
+	
+}
+
+div.detailTitle{
+	position: fixed;
+	top:100px;
+	width: 85%;
+	background-color: #222;
+	background-color: lightblue;
+	font-size: 17px;
+	padding-left:10px;
+	text-align: left;
+	
+	font-weight: bold;
+	height: 32px;
+	line-height: 1.5;
+	/*border-bottom: solid 2px #777;*/
+}
+
+div.detailTitleWord1{
+	margin-top: 4px;
+	display: inline-block;
+	
+	
+}
+div.detailTitleWord2{
+	float: right;
+	margin-right: 30px;
+	margin-top: 4px;
+}
+div.detailTitleLast{
+	display: inline-block;
+	height: 100%;
+	margin-left: 50%;
+
+}
+
+div.detailTitleNext{
+	display: inline-block;
+	
+	height: 100%;
+	margin-left: 3%;
+
+}
+div.detailTitleLast:hover{
+	/*background:black;
+	color:white;*/
+}
+div.detailTitleNext:hover{
+/*	background:black;
+	color:white;*/
+}
+
+a.detailTitleJump{
+	
+	text-decoration: none;
+}
+
+div.detailBody{
+	margin-top: 3px;
+	/*background-color: lightblue;*/
+	/*min-height: 300px;*/
+	/*height: 520px;*/
+	/*text-align: center;*/
+	width: 100%;
+	
+}
+
+div.detailImage{
+	margin: 3px;
+	display: inline-block;
+	vertical-align: top;
+	/*float: left;*/
+	width:  35%;
+	min-width: 170px;
+	min-height: 180px;
+	
+	max-width: 400px;
+}
+
+img.detailImage{
+	border-radius: 10px;
+	min-width: 250px;
+	min-height: 180px;
+	width: 100%;
+	height: auto;
+}
+div.detailData{
+	/*border-left: solid 2px #777;*/
+	vertical-align: top;
+	display: inline-block;
+	width: 63%;
+	font-size: 15px;
+	display: inline-block;
+
+}
+
+div.detailDataTop{
+	
+	width: 100%;
+	display: inline-block;
+}
+
+div.detailDataMiddle{
+	width: 100%;
+	margin-top: 5px;
+	display: inline-block;
+}
+
+div.detailDataBottom{
+	width: 100%;
+	margin-top: 5px;
+	display: inline-block;
+	
+}
+
+table.detail{
+	width: 100%;
+}
+div.detailCollect{
+	float: left;
+	margin-left: 50px;
+}
+div.detailCancle{
+	float: left;
+	margin-left: 20px;
+}
+div.detailSubmit{
+	float: left;
+	margin-left: 20px;
+}
+div.detailContinue{
+	float: right;
+	margin-right: 40px;
+}
+input.num{
+	width:50px;
+	font-size: 17px;
+	text-align: center;
+}
+
+div.recommend{
+	width: 100%;
+	
+	/*background-color: green;*/
+	display: inline-block;
+	margin-top: 30px;
+}
+
+div.matchPicture{
+	
+	display: inline-block;
+	vertical-align: middle;
+}
+img.matchPicture{
+	width: 150px;
+	height: auto
+}
+div.recLink{
+	display: inline-block;
+	
+	vertical-align: middle;
+}
+div.productMatch{
+	display: inline-block;
+	
+	width: 150px;
+	border: solid 2px white;
+	vertical-align: middle;
+	
+}
+div.productNumMatch{
+	display: inline-block;
+	float: left;
+	color: inherit;
+}
+div.priceMatch{
+	display: inline-block;
+	float: right;
+}
+div.productPicMatch{
+
+}
+
+div.information{
+	width: 100%;
+	display: inline-block;
+	border-radius: 10px;
+}
+div.informationWord{
+	
+	font-size: 17px;
+	font-weight: bold;
+	text-align: left;
+	padding-left: 20px;
+	background-color: lightblue;
+	
+	
+	padding: 2px 0px 4px 10px;
+}
+
+div.comment{
+	width: 100%;
+	height: 100px;
+	/*background-color: #222;*/
+	display: inline-block;
+	/*color: #ccc;*/
+}
+textarea.commentWord{	
+	margin-left: 20px;
+	width:80%; 
+	border: solid 2px gray;
+	border-radius: 2px;
+	height: 20px;
+	font-size: 15px;
+	font-family: inherit;
+	
+}
+input.commentButton{
+
+}
+h3.commentWordTitle{
+	color: red;
+}
+div.commentWord{
+	margin-left: 20px;
+}
+div.commentsAthor{
+	display: inline-block;
+	color: blue;
+
+}
+div.comments{
+	display: inline-block;
+}
+div.informationTable{
+	
+	padding: 10px;
+
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius: 5px; 
+}
+table.informationTable{
+	width: 100%;
+}
+
+td.tdTextLeft{
+	text-align: left;
+}
+td.tdTextCenter{
+	text-align: center;
+}
+td.tdTextRight{
+	text-align: right;
+}
+.copyAndPaste:hover{
+	cursor: pointer;
+}
+.total{
+	font-size: 17px;
+	font-weight: bold;
+}
+
+div.page{
+	width: 100%;
+	
+	display: inline-block;
+	margin: 50px auto 0 auto;
+	font-size: 20px;
+	text-align: center;
+	border: solid 1px #777;
+
+}
+div.pageWordBoder{
+	border: solid 1px white;
+}
+div.pageWordBoder:hover{
+	border-color: #f50;
+	color: #f50;
+}
+
+div.pageAnchor{
+	
+	display: inline-block;
+	
+	
+}
+
+div.pageAnchorNumber{
+	width: 30px;
+	display: inline-block;
+	
+}
+
+div.pageInput{
+
+	display: inline-block;
+
+}
+
+input.pageInput{
+	width: 70px;
+	display: inline-block;
+	font-size: 15px;
+	text-align: center;
+}
+
+input.pageSelect{
+	visibility: hidden;
+	width: 0px;
+	height: 0;
+}
+
+input.pageButton{
+	width: 70px;
+	font-size: 15px;
+}
+
+input.pageButton:hover{
+	cursor: pointer;
+	border-color: #f50;
+	color: #f50;
+}
+
+
+
+@media screen and (max-width: 1200px) {
+    div.rankByBrand,div.rankByProductType,div.rankByMucai,
+	div.rankByProductClass,div.rankByProductSerial,
+	div.rankByOrderAmount{
+		float: left;
+		display: inline-block;
+		margin: 4px 1% auto 0;
+		
+	}
+	div.rank{
+		border: solid 2px #777;
+		width: 85%;
+		min-width: 830px;
+		height: 32px;
+	
+	}
+
+	div.searchByProductCode{
+	
+		display: inline-block;
+		margin-top: -2px;
+		margin-right: -2px;
+		font-size: 15px;
+	}
+}
+
+
+@media screen and (max-width: 900px){
+		div.detailTitleLast{
+		display: inline-block;
+		height: 100%;
+		margin-left: 30%;
+
+	}
+}

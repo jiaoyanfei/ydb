@@ -1,0 +1,84 @@
+<div class="page">
+	<% var preHref = "#";
+	var preClass = "prePage";
+	var nextHref = "#";
+	var anchor = curPage+"?";
+	if(reqBrand != undefined)
+	{
+		anchor += "Brand=";
+		anchor += reqBrand;
+		anchor += "&ProductType=";
+		anchor += reqProductType;
+		anchor += "&Mucai=";
+		anchor += reqMucai;
+		anchor += "&ProductClass=";
+		anchor += reqProductClass;
+		anchor += "&ProductSerial=";
+		anchor += reqProductSerial;
+		anchor += "&OrderAmount=";
+		anchor += reqOrderAmount;
+		anchor += "&OrderNumber=";
+		anchor += reqOrderNumber;
+		anchor += "&ProductCode=";
+		anchor += reqProductCode;
+		anchor += "&";
+	}
+		anchor += "page=";
+
+	if(page > 1)
+	{
+		
+		preHref = anchor;
+		preHref += (page-1);
+
+	}
+	
+	if(page*pageLength < data.length)
+	{
+		var temp = 0;
+		temp = Number(page);
+		nextHref = anchor;
+		nextHref += Number(temp+1);
+	}
+	%>
+	<a href=<%=preHref %> ><div class="pageAnchor pageWordBoder">上一页</div></a>
+	<a href="<%=anchor %>1" ><div class="pageAnchorNumber pageWordBoder">1</div></a>
+	<% if(pageNum >= 2){ %> 
+		<a href="<%=anchor %>2" ><div class="pageAnchorNumber pageWordBoder">2</div></a>
+	<% } %>
+	
+	<% if(page <= 5){ for(var i = 3;i<=7 && i<= pageNum;i++){ %>
+	<a href="<%=anchor %><%=i %>" ><div class="pageAnchorNumber pageWordBoder"><%=i %></div></a>
+	
+	<% } if(pageNum > 7){ %>  ...
+	<% } } else if(page >= pageNum - 2){ %> ... <% for(var i = pageNum-4;i<= pageNum;i++){ %>
+
+	<a href="<%=anchor %><%=i %>" ><div class="pageAnchorNumber pageWordBoder"><%=i %></div></a>
+	<% }  } else{ %>
+	...
+	<a href="<%=anchor %><%=page-2 %>" ><div class="pageAnchorNumber pageWordBoder"><%=page-2 %></div></a>
+	<a href="<%=anchor %><%=page-1 %>" ><div class="pageAnchorNumber pageWordBoder"><%=page-1 %></div></a>
+	<a href="<%=anchor %><%=page %>" ><div class="pageAnchorNumber pageWordBoder"><%=page %></div></a>
+	<a href="<%=anchor %><%=Number(Number(page)+1) %>" ><div class="pageAnchorNumber pageWordBoder"><%=Number(Number(page)+1) %></div></a>
+	<a href="<%=anchor %><%=Number(Number(page)+2) %>" ><div class="pageAnchorNumber pageWordBoder"><%=Number(Number(page)+2) %></div></a>
+	...
+	<% } %>
+	
+	<a href=<%=nextHref %> ><div class="pageAnchor pageWordBoder">下一页</div></a>
+	<div class="pageInput">
+		<form method="GET" action="<%=curPage %>">
+			<label>  到第 </label><input type="text" class="pageInput" name="page" required="required"><label> 页</label>
+			<input type="submit" value="确定" class="pageButton pageWordBoder">
+			<% if(reqBrand != undefined){ %>
+			<input type="text" class="pageSelect" name="Brand" value="<%=reqBrand %>">
+			<input type="text" class="pageSelect" name="ProductType" value="<%=reqProductType %>">
+			<input type="text" class="pageSelect" name="Mucai" value="<%=reqMucai %>">
+			<input type="text" class="pageSelect" name="ProductClass" value="<%=reqProductClass %>">
+			<input type="text" class="pageSelect" name="ProductSerial" value="<%=reqProductSerial %>">
+			<input type="text" class="pageSelect" name="OrderAmount" value="<%=reqOrderAmount %>">
+			<input type="text" class="pageSelect" name="OrderNumber" value="<%=reqOrderNumber %>">
+			<input type="text" class="pageSelect" name="ProductCode" value="<%=reqProductCode %>">
+			<% } %>
+		</form>
+	</div>
+</div>

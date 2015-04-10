@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+
+	<Resource name="jdbc/mysql" auth="Container"
+	
+	type="com.jolbox.bonecp.BoneCPDataSource" factory="org.apache.naming.factory.BeanFactory"
+	
+	driverClass="com.mysql.jdbc.Driver" username="root" password="admin"
+	
+	jdbcUrl="jdbc:mysql://localhost:3307/yidingbao"
+	
+	idleMaxAge="10" maxConnectionsPerPartition="100" />
+
+</Context>
