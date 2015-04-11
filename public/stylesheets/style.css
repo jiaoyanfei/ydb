@@ -890,6 +890,10 @@ div.budgetItem{
 div.budgetLeft{
 	float: left;
 }
+
+div.orderBudget{
+	width: 100%;
+}
 @media screen and (max-width: 1200px) {
     div.rankByBrand,div.rankByProductType,div.rankByMucai,
 	div.rankByProductClass,div.rankByProductSerial,
