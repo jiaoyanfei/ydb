@@ -74,6 +74,60 @@ router.get('/', function(req, res, next) {
 				selectSQL += " and Invalid = 1 )";
 			}
 			break;
+			case 'detailMatch':
+			{
+				if(req.session.MatchProductIDs != undefined)
+				{
+					selectSQL = "select * from products where ";
+
+					matchIds = req.session.MatchProductIDs;
+					if(matchIds.length != 0)
+					{
+						
+						
+						for(var i = 0;i<matchIds.length;i++)
+						{
+							if(i > 0)
+							{
+								selectSQL += " or ";
+							}
+							
+							selectSQL += " Id =  ";
+							selectSQL += matchIds[i];
+						}
+
+						
+					}
+				}
+			}
+			break;
+			case 'detailDisplay':
+			{
+				if(req.session.ProductIds != undefined)
+				{
+					selectSQL = "select * from products where ";
+
+					matchIds = req.session.ProductIds;
+					if(matchIds.length != 0)
+					{
+						
+						
+						for(var i = 0;i<matchIds.length;i++)
+						{
+							if(i > 0)
+							{
+								selectSQL += " or ";
+							}
+							
+							selectSQL += " Id =  ";
+							selectSQL += matchIds[i];
+						}
+
+						
+					}
+				}
+			}
+			break;
 		}
 		
 		com.executeSQL(selectSQL, function(err, rows) {

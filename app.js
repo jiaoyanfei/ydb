@@ -16,6 +16,8 @@ var orderByMatch = require('./routes/orderByMatch');
 var orderByDisplay = require('./routes/orderByDisplay');
 var searchByCode = require('./routes/searchByCode');
 var detail = require('./routes/detail');
+var detailMatch = require('./routes/detailMatch');
+var detailDisplay = require('./routes/detailDisplay');
 var comment = require('./routes/comment');
 var orderBudget = require('./routes/orderBudget');
 var collection = require('./routes/collection');
@@ -27,6 +29,7 @@ var deleted = require('./routes/deleted');
 var invalidPd = require('./routes/invalidPd');
 var collectionSet = require('./routes/collectionSet');
 var show = require('./routes/show');
+var goldAgent = require('./routes/goldAgent');
 var app = express();
 
 // view engine setup
@@ -58,6 +61,8 @@ app.use('/orderByMatch',orderByMatch);
 app.use('/orderByDisplay',orderByDisplay);
 app.use('/searchByCode',searchByCode);
 app.use('/detail', detail);
+app.use('/detailMatch',detailMatch);
+app.use('/detailDisplay',detailDisplay);
 app.use('/comment',comment);
 app.use('/orderBudget',orderBudget);
 app.use('/collection',collection);
@@ -69,6 +74,7 @@ app.use('/invalidPd',invalidPd);
 app.use('/deleted',deleted);
 app.use('/collectionSet',collectionSet);
 app.use('/show',show);
+app.use('/goldAgent',goldAgent);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

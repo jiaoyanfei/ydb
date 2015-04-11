@@ -20,7 +20,6 @@ router.get('/', function(req, res, next) {
 		var selectSQL = "select * from matches";
 		
 		
-		console.log(selectSQL);
 		com.executeSQL(selectSQL, function(err, rows) {
 		    if (err)
 		    {

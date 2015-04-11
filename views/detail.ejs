@@ -128,7 +128,7 @@
 								var disA = disStr.split(',');
 								var dis = 0;
 								for(var i = 0;i<disA.length;i++){
-								 	if(disA[i].split(':')[0] == data['ProductClass'])
+								 	if(disA[i].split(':')[0] == data['ProductClass'] && userInfo[0]['DiscountVisible'][0] == 1)
 								 	{
 								 		dis = disA[i].split(':')[1];
 								 		break;
@@ -138,7 +138,9 @@
 										if(disA[i].split(':')[0] == "通常")
 											dis = disA[i].split(':')[1];
 									}
+									
 								}
+								
 									 %>
 								<td class="tdTextLeft">零售价：<%=data['Price'] %><% if(userInfo[0]['DiscountVisible'][0] == 1 ){ %>(<%=dis %>折) <% } %></td>
 

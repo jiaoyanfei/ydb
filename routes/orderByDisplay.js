@@ -18,9 +18,6 @@ router.get('/', function(req, res, next) {
 	{
 		
 		var selectSQL = "select * from place_display";
-		
-		
-		console.log(selectSQL);
 		com.executeSQL(selectSQL, function(err, rows) {
 		    if (err)
 		    {
