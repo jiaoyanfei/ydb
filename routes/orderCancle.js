@@ -24,8 +24,10 @@ router.get('/', function(req, res, next) {
 		    }
 		    else
 		    {
-		    	// res.redirect('detail?Id='+Id);
-				res.redirect('alreadyOrdered');
+		    	if(req.session.curPage == "notOrder")
+		    		res.redirect('detail?Id='+Id);
+		    	else
+					res.redirect(req.session.curPage);
 		  	}
 		    
 		});

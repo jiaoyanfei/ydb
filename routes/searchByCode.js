@@ -43,7 +43,7 @@ router.get('/', function(req, res, next) {
 		
 		if(reqProductCode != undefined)
     	{
-    		selectSQL += " where ProductCode like '%";
+    		selectSQL += " where and ProductCode like '%";
     		selectSQL += reqProductCode;
     		selectSQL += "%'";
     	}

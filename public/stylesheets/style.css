@@ -72,7 +72,7 @@ div.container{
 	margin-left:auto
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
-	box-sizing:border-box
+	box-sizing:border-box;
 }
 div.footer-top{
 	display: inline-block;
@@ -324,8 +324,8 @@ div.masterLogout{
 
 div.main{
 	min-height: 600px;
-	margin: 120px auto 0 auto;
-	width: 90%;
+	margin: 160px auto 0 auto;
+	width: 88%;
 	display: inline-block;
 }
 div.billRank{
@@ -337,8 +337,8 @@ div.billRank{
 	font-weight: bolder;
 	text-align: left;
 	padding-left: 30px;
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: 25px;
+	padding-bottom: 25px;
 	width: 100%;
 	
 }
@@ -350,7 +350,7 @@ div.rank{
 	height: 28px;
 	position: fixed;
 	z-index: 5;
-	top: 90px;
+	top: 120px;
 	background-color: lightblue;
 }
 .rankTop{
@@ -467,7 +467,7 @@ a {
 }
 div.productsList{
 	
-	width: 88%;
+	width: 100%;
 	min-height: 450px;
 	display: inline-block;
 	
@@ -489,7 +489,7 @@ div.productNotFound{
 div.product{
 	display: inline-block;
 	float: left;
-	width: 180px;
+	width: 183px;
 	height: auto;
 	border: solid 2px white;
 	margin:5px 5px 0px 0px;
@@ -517,7 +517,7 @@ div.productTop{
 }
 div.productPic{
 	text-align: center;
-	width: 100%;
+	
 	
 }
 div.productBottom{
@@ -526,7 +526,7 @@ div.productBottom{
 }
 img.productPic{
 	max-width: 200px;
-	width: auto;
+	width: 182px;
 	border: none;
 	height: 240px;
 }
@@ -557,7 +557,7 @@ div.detail{
 	border: solid 2px lightblue;
 	border-radius: 2px;
 	min-width: 500px;
-	width: 87%;
+	width: 95%;
 	min-height: 450px;
 	display: inline-block;
 	
@@ -565,7 +565,7 @@ div.detail{
 
 div.detailTitle{
 	position: fixed;
-	top:100px;
+	top:130px;
 	width: 85%;
 	background-color: #222;
 	background-color: lightblue;
@@ -709,7 +709,7 @@ input.num{
 
 div.recommend{
 	width: 100%;
-	
+	overflow:scroll;
 	/*background-color: green;*/
 	display: inline-block;
 	margin-top: 30px;
@@ -817,9 +817,13 @@ td.tdTextLeft{
 }
 td.tdTextCenter{
 	text-align: center;
+	height: auto;
 }
 td.tdTextRight{
 	text-align: right;
+}
+td.maxWidth{
+	max-width: 50px;
 }
 .copyAndPaste:hover{
 	cursor: pointer;
@@ -894,10 +898,18 @@ div.budgetItem{
 	text-align: center;
 }
 div.budgetLeft{
-	float: left;
+	
+	display: inline-block;
+	width: 10%;
+	vertical-align: top;
 }
-
+div.budgetRight{
+	width: 89%;
+	display: inline-block;
+	vertical-align: top;
+}
 div.orderBudget{
+
 	width: 100%;
 }
 @media screen and (max-width: 1200px) {

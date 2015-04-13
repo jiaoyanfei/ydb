@@ -11,66 +11,65 @@
 <div class="global">
 	<% include nav %>
 	<div class="main">
-		<div class="orderBudget">
+		<div class="orderAnalyzing">
 			<div class="budgetLeft">
 				
 					<div class="budgetItem">项目内容</div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=SerialOrderBudget">主题预算</a></div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=MucaiOrderBudget">波段预算</a></div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=TypeOrderBudget">款别预算</a></div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=ClassOrderBudget">品类预算</a></div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=PricezoneOrderBudget">价格带预算</a></div>
+					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=SerialOrderAnalyzing">主题分析</a></div>
+					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=MucaiOrderAnalyzing">波段分析</a></div>
+					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=ClassOrderAnalyzing">品类分析</a></div>
+					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=TypeOrderAnalyzing">款别分析</a></div>
+					
+					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=PricezoneOrderAnalyzing">价格带分析</a></div>
 
 			</div>
-			<table class="orderBudget">
+			<table class="orderAnalyzing">
 				<tr>
-					<td class="tdTextCenter"><input class="pageSelect" name="budgetID"> </td>
+					
+					<td class="tdTextCenter">名称</td>
+					<td class="tdTextCenter">订款量/占比</td>
+					<td class="tdTextCenter">SKU/占比</td>
+					<td class="tdTextCenter">顶数量/占比</td>
+					<td class="tdTextCenter">金额/占比</td>
 					<td class="tdTextCenter">公司指引</td>
 					<td class="tdTextCenter">自定义预算</td>
-					<td class="tdTextCenter">预算占比</td>
 				</tr>
-				<tr>
-					<td class="tdTextCenter">总订货金额</td>
-					<td class="tdTextCenter"><%=userInfo[0]['GuideAmount'] %>万</td>
-					<td class="tdTextCenter"><input value="<%=userInfo[0]['BudgetAmount'] %>万" style="text-align:center"></td>
-					<td class="tdTextCenter">100%</td>
-					
-				</tr>
-				<% var guidType = "SerialOrderGuide";
-				switch(budgetType)
+				
+				<% var analyzingType = "SerialOrderGuide";
+				switch(analyzingType)
 				{
-					case 'SerialOrderBudget':
-						guidType = "SerialOrderGuide";
+					case 'SerialOrderAnalyzing':
+						analyzingType = "SerialOrderGuide";
 						break;
-					case 'TypeOrderBudget':
-						guidType = "TypeOrderGuide";
+					case 'TypeOrderAnalyzing':
+						analyzingType = "TypeOrderGuide";
 						break;
-					case 'ClassOrderBudget':
-						guidType = "ClassOrderGuide";
+					case 'ClassOrderAnalyzing':
+						analyzingType = "ClassOrderGuide";
 						break;
-					case 'MucaiOrderBudget':
-						guidType = "MucaiOrderGuide";
+					case 'MucaiOrderAnalyzing':
+						analyzingType = "MucaiOrderGuide";
 						break;
-					case 'PricezoneOrderBudget':
-						guidType = "PricezoneOrderGuide";
+					case 'PricezoneOrderAnalyzing':
+						analyzingType = "PricezoneOrderGuide";
 						break;
 				}
-				var budget = userInfo[0][budgetType].split(',');
+				var Analyzing = userInfo[0][analyzingType].split(',');
 
-				var guide = guideInfo[0][guidType].split(',');
+				var guide = guideInfo[0][analyzingType].split(',');
 				
-				for(var i = 0;i<budget.length;i++)
+				for(var i = 0;i<Analyzing.length;i++)
 				{
-					budget[i] = budget[i].split(':');
-					var curBudgetPercent = budget[i][1];
-					budget[i][1] =  budget[i][1].substr(0,budget[i][1].length-1);
+					Analyzing[i] = Analyzing[i].split(':');
+					var curAnalyzingPercent = Analyzing[i][1];
+					Analyzing[i][1] =  Analyzing[i][1].substr(0,Analyzing[i][1].length-1);
 					
-					var curBudget = Math.round(Number(budget[i][1])/100 * userInfo[0]['BudgetAmount']);
-					var curBudgetName = budget[i][0];
+					var curAnalyzing = Math.round(Number(Analyzing[i][1])/100 * userInfo[0]['AnalyzingAmount']);
+					var curAnalyzingName = Analyzing[i][0];
 					var curGuide = "";
 					for(var j = 0;j<guide.length;j++)
 					{
-						if(guide[j].split(':')[0] == budget[i][0] )
+						if(guide[j].split(':')[0] == Analyzing[i][0] )
 						{
 							curGuide = guide[j].split(':')[1];
 							break;
@@ -81,10 +80,10 @@
 				%>
 				<tr>
 					
-					<td class="tdTextCenter"><%=curBudgetName %></td>
+					<td class="tdTextCenter"><%=curAnalyzingName %></td>
 					<td class="tdTextCenter"><%=curGuide %></td>
-					<td class="tdTextCenter"><%=curBudget %>万</td>
-					<td class="tdTextCenter"><%=curBudgetPercent %></td>
+					<td class="tdTextCenter"><%=curAnalyzing %>万</td>
+					<td class="tdTextCenter"><%=curAnalyzingPercent %></td>
 					
 				</tr>
 				<% }%>

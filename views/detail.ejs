@@ -251,7 +251,9 @@
 					</div>
 					<div class="detailDataBottom">
 						<div class="detailCollect">
-						<% var collection = userInfo[0]['CollectionSet'].split(',');
+						<% var collection = [];
+						if(userInfo[0]['CollectionSet'] != null) 
+							collection = userInfo[0]['CollectionSet'].split(',');
 						
 						var tempHref = "collection?Id="+data['Id'];
 						var words2show = "收藏";
@@ -291,32 +293,13 @@
 			<div class="recommend">
 				
 				
-					<% if(reccomendData != null) { for(var i = 0;i<reccomendData.length;i++){  %>
-						<div class="productMatch">
-							<a href="detail?curPage=orderByStyle&Id=<%=reccomendData[i]['match']['Id'] %>" class="block">
-							<div class="productTop">
-								<div class="productNumMatch">推荐搭配</div>
-							</div>
-							
-							<div class="productPicMatch">
-								<img src="<%=reccomendData[i]['match']['MatchPicture'].split(',')[0] %>" class="matchPicture">
-							</div>
-							</a>
-						</div>
-						
-						<div class="recLink" ><span class="bootFont" >=</span></div>
-						<% for(var j = 0;j<reccomendData[i]['matchProduct'].length;j++){ var data1 = reccomendData[i]['matchProduct'][j]; %>
+					<%  for(var i = 0;i<reccomendData.length;i++){ 
+						var data1 = reccomendData[i]; %>
 
 						<% include blockMatch %>
-							<% if(j != reccomendData[i]['matchProduct'].length-1) { %>
+							<% if(i != reccomendData.length-1) { %>
 							+
 							<% } %>
-						<% } %>
-					
-
-					<% }} else{ %>
-
-
 					<% } %>
 				
 			</div>

@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 	}
 	if(com.isLogined(req.session) )
 	{
-		var selectSQL ='select * from products where Deleted = 0 ';
+		var selectSQL ='select * from products ';
 		
 		switch(req.session.curPage)
 		{
@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
 			break;
 			case 'notOrder':
 			{
-				selectSQL = "select * from products where Deleted = 0 and Id not in (select ProductId from all_orders where CustomerId = ";
+				selectSQL = "select * from products where Id not in (select ProductId from all_orders where CustomerId = ";
 				selectSQL += req.session.Id;
 				selectSQL += " and Invalid = 0 )";
 			}
@@ -42,13 +42,13 @@ router.get('/', function(req, res, next) {
 			break;
 			case 'collectionSet':
 			{
-				selectSQL = "select * from products where Deleted = 0 ";
+				selectSQL = "select * from products where ";
 				var ids = req.session.CollectionSet.split(',');
 				// console.log(ids);
 		    	if(ids.length != 0)
 		    	{
 		    		
-					selectSQL += " and ( ";
+					
 		    		
 		    		for(var i = 0;i<ids.length;i++)
 		    		{
@@ -61,7 +61,7 @@ router.get('/', function(req, res, next) {
 						selectSQL += ids[i];
 		    		}
 
-		    		selectSQL += " ) ";
+		    		
 		    	}
 		    	
 			   
@@ -78,13 +78,13 @@ router.get('/', function(req, res, next) {
 			{
 				if(req.session.MatchProductIDs != undefined)
 				{
-					selectSQL = "select * from products where ";
+					selectSQL = "select * from products ";
 
 					matchIds = req.session.MatchProductIDs;
 					if(matchIds.length != 0)
 					{
 						
-						
+						selectSQL += " where ";
 						for(var i = 0;i<matchIds.length;i++)
 						{
 							if(i > 0)
@@ -141,7 +141,7 @@ router.get('/', function(req, res, next) {
 		    	//res.send(rows);
 		    	
 		    		com.executeSQL("select * from comments where ProductId="+id,function(err3,rows3){
-		    			var selectSQL4 = "select * from all_orders where Invalid=0 and CustomerId = ";
+		    			var selectSQL4 = "select * from all_orders where CustomerId = ";
 		    			selectSQL4 += req.session.Id;
 		    			selectSQL4 += " and ProductId = ";
 		    			selectSQL4 += id;
@@ -150,7 +150,7 @@ router.get('/', function(req, res, next) {
 							
 
 							com.executeSQL("select * from user_info where Id = "+req.session.Id,function(err5,rows5){
-								var reccomendData = [];
+								
 								var current = undefined;
 								var last =undefined;
 								var nex = undefined;						    	
@@ -180,10 +180,11 @@ router.get('/', function(req, res, next) {
 						    		// }
 						    	}
 								
-						    	try
+						    	if(current['MatchIds'] != null && current['MatchIds']!="")
 						    	{
-							    	var matches = String(current['MatchProductIds']).split(',');
-							    	var selectSQL1 = 'select * from matches where ';
+							    	var matches = String(current['MatchIds']).split(',');
+							    	var selectSQL1 = 'select * from products where ';
+							    	// console.log(current['MatchIds']);
 							    	for(var i = 0;i<matches.length;i++)
 						    		{
 						    			if(i == 0)
@@ -192,79 +193,28 @@ router.get('/', function(req, res, next) {
 						    			}
 						    			else
 						    			{
-						    				selectSQL1 += 'or Id = ';
+						    				selectSQL1 += ' or Id = ';
 						    			}
 						    			selectSQL1 += matches[i];
 						    			
 						    		}
 							    	
 							    	com.executeSQL(selectSQL1,function(err1,rows1){
-							    		
-						    			gI = 0;
-						    			if(rows1 != undefined && rows1 != [])
-							    		for(var j = 0;j<rows1.length;j++)
-							    		{
-							    			reccomendData.push({match:rows1[j], matchProduct:{}});
-								    		var matchIds = String(rows1[j]['MatchProductIDs']).split(',');
-
-								    		var selectSQL2 = 'select * from products where ';
-								    		for(var i = 0;i<matchIds.length;i++)
-								    		{
-								    			if(i == 0)
-								    			{
-								    				selectSQL2 += 'Id = ';
-								    			}
-								    			else
-								    			{
-								    				selectSQL2 += 'or Id = ';
-								    			}
-								    			selectSQL2 += matchIds[i];
-								    			selectSQL2 += ' ';
-								    		}
-								    		
-								    		
-								    		com.executeSQL(selectSQL2,function(err2,rows2){
-								    			// console.log(rows2);
-								    			
-								   				reccomendData[gI].matchProduct = rows2;
-								   				// console.log(reccomendData[gI]);
-								   				gI ++;
-								    			if(gI == rows1.length)
-								    			{
-								    				// console.log("j:"+gI );
-								    				// console.log("row1.length:"+rows1.length);	    				
-													res.render('detail',{
-														Name:Name,
-														curPage:req.session.curPage,
-														data:current,
-														last:last,
-														next:nex,
-														reccomendData:reccomendData,
-														comments:rows3,
-														ordered:rows4,
-														userInfo:rows5
-													});
-								    			}
-								    		});
-								    	}
-								    	else
-								    	{
-								    		res.render('detail',{
-												Name:Name,
-												curPage:req.session.curPage,
-												data:current,
-												last:last,
-												next:nex,
-												reccomendData:reccomendData,
-												comments:rows3,
-												ordered:rows4,
-												userInfo:rows5
-											});
-								    	}
-							    	
+							    		// console.log(rows1);
+							    		res.render('detail',{
+											Name:Name,
+											curPage:req.session.curPage,
+											data:current,
+											last:last,
+											next:nex,
+											reccomendData:rows1,
+											comments:rows3,
+											ordered:rows4,
+											userInfo:rows5
+										});							    	
 						   			});
 								}
-						    	catch(e)
+						    	else
 						    	{
 
 									res.render('detail',{
@@ -273,7 +223,7 @@ router.get('/', function(req, res, next) {
 										data:current,
 										last:last,
 										next:nex,
-										reccomendData:reccomendData,
+										reccomendData:[],
 										comments:rows3,
 										ordered:rows4,
 										userInfo:rows5

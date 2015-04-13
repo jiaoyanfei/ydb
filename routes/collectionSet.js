@@ -31,10 +31,10 @@ router.get('/', function(req, res, next) {
 	if(com.isLogined(req.session) )
 	{
 		
-		var flag = 1;
+		var flag = 0;
 		// var selectSQL = "select * from products where CustomerId = ";
 		// selectSQL += req.session.Id;
-		var selectSQL = "select * from products where  Deleted = 0  ";
+		var selectSQL = "select * from products where  ";
 		
 		if(reqBrand != undefined && reqBrand != "全部品牌")
 		{

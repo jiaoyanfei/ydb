@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 	{
 		
 		var flag = 1;
-		var selectSQL = "select * from products where Deleted = 0 and Id not in (select ProductId from all_orders where CustomerId = ";
+		var selectSQL = "select * from products where Id not in (select ProductId from all_orders where CustomerId = ";
 		selectSQL += req.session.Id;
 		selectSQL += " and Invalid = 0 ) ";
 		if(reqBrand != undefined && reqBrand != "全部品牌")

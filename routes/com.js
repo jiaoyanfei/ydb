@@ -24,10 +24,6 @@ exports.executeSQL =  function(SQL,callback){
 };
 
 exports.isLogined = function(session){
-
-
-	// for debug ,delete when release
-	return true;
 	if(session.LoginUserName == undefined)
 	{
 		return false;

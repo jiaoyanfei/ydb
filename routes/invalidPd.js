@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 	{
 		
 		var flag = 1;
-		var selectSQL = "select * from products where Deleted=1";
+		var selectSQL = "select * from products where Deleted=1 ";
 		if(reqBrand != undefined && reqBrand != "全部品牌")
 		{
 			if(flag > 0)

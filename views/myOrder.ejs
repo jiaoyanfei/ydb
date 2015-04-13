@@ -44,10 +44,29 @@
 				</tr>
 			</table>
 			<table class="orderBudget">
+			<% var tempOrders = [];
+				var j = -1;
+				for(var i = 0 ; i < orders.length;i++)
+				{
+					if(i>0 && orders[i]['ProductId'] == orders[i-1]['ProductId'])
+					{
+						//console.log(tempOrders);
+						tempOrders[j]['Color'] += "\n"+orders[i]['Color'];
+						tempOrders[j]['UserOrderDetails'] += "\n"+orders[i]['UserOrderDetails'];
+						tempOrders[j]['SKU'] ++;
+					}
+					else
+					{
+						tempOrders.push(orders[i]);
+						tempOrders[++j]['SKU'] = 1;
+						//console.log(tempOrders);
+					}
+				}
+				%>
 				<tr>
 					<td class="tdTextCenter">排名</td>
 					<td class="tdTextCenter">货号</td>
-					<td class="tdTextCenter">品类<br> 款</td>
+					<td class="tdTextCenter">品类<br> <%=tempOrders.length %>款</td>
 					<td class="tdTextCenter">订数<br> <%=userInfo[0]['OrderProductNumber'] %>件</td>
 					<td class="tdTextCenter">价格</td>
 					<td class="tdTextCenter">金额<br>￥ <%=(Number(userInfo[0]['OrderAmount'])/10000).toFixed(4) %>万</td>
@@ -55,27 +74,30 @@
 					<td class="tdTextCenter">订货详情</td>
 					<td class="tdTextCenter">SKU</td>
 				</tr>
-				<% 
-				for(var i = 0;i<orders.length;i++)
+				<% for(var i = 0;i<tempOrders.length;i++)
 				{
 					
-					var no = orders[i]['id'];
-					var productCode = orders[i]['ProductCode'];
-					var styleNum = orders[i]['AllColorsOrderNumber'];
-					var orderNum = orders[i]['UserOrderNumber'];
-					var price = orders[i]['ProductPrice'];
-					var userOrderAmount = orders[i]['UserOrderAmount'];
-					var color = orders[i]['Color'];
+					var no = tempOrders[i]['id'];
+					var productCode = tempOrders[i]['ProductCode'];
+					var style = tempOrders[i]['ProductClass'];
+					var orderNum = tempOrders[i]['UserOrderNumber'];
+					var price = tempOrders[i]['ProductPrice'];
+					var userOrderAmount = tempOrders[i]['UserOrderAmount'];
+					var color = tempOrders[i]['Color'];
+					var details = tempOrders[i]['UserOrderDetails'];
+					var SKU = tempOrders[i]['SKU'];
 				%>
 				<tr>
 					
-					<td class="tdTextCenter"><%=i %></td>
+					<td class="tdTextCenter"><%=i+1 %></td>
 					<td class="tdTextCenter"><%=productCode %></td>
-					<td class="tdTextCenter"><%=styleNum %></td>
+					<td class="tdTextCenter"><%=style %></td>
 					<td class="tdTextCenter"><%=orderNum %></td>
 					<td class="tdTextCenter"><%=price %></td>
 					<td class="tdTextCenter"><%=userOrderAmount %></td>
 					<td class="tdTextCenter"><%=color %></td>
+					<td class="tdTextCenter "><%=details %></td>
+					<td class="tdTextCenter "><%=SKU %></td>
 					
 				</tr>
 				<% }%>
