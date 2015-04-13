@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var com = require('./com');
 /* GET users listing. */
-router.post('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
 
 	
 
@@ -11,36 +11,21 @@ router.post('/', function(req, res, next) {
 		console.log(req.query);
 		var LoginUserName = req.session.LoginUserName;
 		var Name = req.session.Name;
-		var Id = req['body']['Id'];
-		var selectSQL ="select * from products where Id ='";
-			selectSQL += Id;
-			selectSQL += "'";
-			
-
-		com.executeSQL(selectSQL, function(err, rows) {
+		var Id = req['query']['Id'];
+		var updateSQL ="update all_orders set Invalid = 1 ";
+		    updateSQL += "where CustomerId="
+			updateSQL += req.session.Id;
+			updateSQL += " and ProductId = ";
+			updateSQL += Id;
+		com.executeSQL(updateSQL, function(err) {
 		    if (err)
 		    {
 		    	console.log(err);
 		    }
 		    else
 		    {
-		    	
-			    var selectSQL1 ="select * from products where Id ='";
-				selectSQL1 += Id;
-				selectSQL1 += "'";
-		    	com.executeSQL(selectSQL1, function(err1, rows1) {
-				    if (err)
-				    {
-				    	console.log(err);
-				    }
-				    else
-				    {
-				    	
-				    	
-				    	res.redirect('detail?Id='+Id);
-				    }
-		    
-				});
+		    	// res.redirect('detail?Id='+Id);
+				res.redirect('alreadyOrdered');
 		  	}
 		    
 		});

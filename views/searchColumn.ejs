@@ -1,0 +1,39 @@
+<% var curPageWord = "我的订单";
+			switch(curPage)
+			{
+				case 'orderBudget':
+				{
+					curPageWord = "订单预算";
+				}
+				break;
+				case 'myOrder':
+				{
+					curPageWord = "我的订单";
+				}
+				break;
+				case 'orderAnalyzing':
+				{
+					curPageWord = "订单分析";
+				}
+				break;
+				case 'universalAnalysis':
+				{
+					curPageWord = "万能分析";
+				}
+				break;
+				case 'goldAgent':
+				{
+					curPageWord = "金牌代理";
+				}
+				break;
+			} %>
+<div class="detailTitle">			
+	<div class="detailTitleWord1"><%=curPageWord %></div>
+	<div class="searchByProductCode">
+	<form method="GET" action="searchByCode">
+		<input type="text" class="searchInput" name="ProductCode" required="required" placeholder="输入货号" >
+		<input type="submit" value="搜索" class="searchButton">
+	</form>
+	</div>
+	<a href="orderByStyle" > <div class="detailTitleWord2"> 主页</div></a>
+</div>

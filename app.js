@@ -23,13 +23,18 @@ var orderBudget = require('./routes/orderBudget');
 var collection = require('./routes/collection');
 var collectionCancle = require('./routes/collectionCancle');
 var order = require('./routes/order');
+var orderCancle = require('./routes/orderCancle');
 var alreadyOrdered = require('./routes/alreadyOrdered');
 var notOrder = require('./routes/notOrder');
 var deleted = require('./routes/deleted');
 var invalidPd = require('./routes/invalidPd');
 var collectionSet = require('./routes/collectionSet');
 var show = require('./routes/show');
+var myOrder = require('./routes/myOrder');
+var orderAnalyzing = require('./routes/orderAnalyzing');
+var universalAnalysis = require('./routes/universalAnalysis');
 var goldAgent = require('./routes/goldAgent');
+var ad = require('./routes/ad');
 var app = express();
 
 // view engine setup
@@ -68,13 +73,18 @@ app.use('/orderBudget',orderBudget);
 app.use('/collection',collection);
 app.use('/collectionCancle',collectionCancle);
 app.use('/order',order);
+app.use('/orderCancle',orderCancle);
 app.use('/alreadyOrdered',alreadyOrdered);
 app.use('/notOrder',notOrder);
 app.use('/invalidPd',invalidPd);
 app.use('/deleted',deleted);
 app.use('/collectionSet',collectionSet);
 app.use('/show',show);
+app.use('/myOrder',myOrder);
+app.use('/orderAnalyzing',orderAnalyzing);
+app.use('/universalAnalysis',universalAnalysis);
 app.use('/goldAgent',goldAgent);
+app.use('/ad',ad);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

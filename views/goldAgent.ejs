@@ -4,34 +4,36 @@
 	<title>易订宝</title>
 	<meta charset="utf-8"/>
 	<link rel='stylesheet' href='/stylesheets/style.css' />
-
+	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/ad.js"></script>
 </head>
 <body>
 <div class="global">
 	<% include nav %>
+	<% include searchColumn %>
 	<div class="main">
 		
-		<table >
+		<table class="goldAgent">
 			<tr>
-				<td>排名</td>
-				<td>名称</td>
-				<td>订款量/占比</td>
-				<td>订数量/占比</td>
-				<td>金额/占比</td>
-				<td>公司指引</td>
-				<td>自定义预算</td>
-				<td>完成率</td>
+				<td class="tdTextCenter">排名</td>
+				<td class="tdTextCenter">名称</td>
+				<td class="tdTextCenter">订款量/占比</td>
+				<td class="tdTextCenter">订数量/占比</td>
+				<td class="tdTextCenter">金额/占比</td>
+				<td class="tdTextCenter">公司指引</td>
+				<td class="tdTextCenter">自定义预算</td>
+				<td class="tdTextCenter">完成率</td>
 			</tr>
 			<% for(i = 0;i<data.length;i++){ %>
 				<tr>
-					<td>第<%=i+1 %>名</td>
-					<td><%=data[i]['Name'] %></td>
-					<td><%=data[i]['OrderStyleNumber'] %>/.00%</td>
-					<td><%=data[i]['OrderProductNumber'] %>/.00%</td>
-					<td><%=Number(data[i]['OrderAmount']/10000).toFixed(4) %>万/.00%</td>
-					<td><%=data[i]['GuideAmount'] %>万</td>
-					<td><%=data[i]['BudgetAmount'] %>万</td>
-					<td><%=Number(data[i]['OrderAmount']/data[i]['GuideAmount']/10000*100).toFixed(2) %>%</td>
+					<td class="tdTextCenter">第<%=i+1 %>名</td>
+					<td class="tdTextCenter"><%=data[i]['Name'] %></td>
+					<td class="tdTextCenter"><%=data[i]['OrderStyleNumber'] %>/.00%</td>
+					<td class="tdTextCenter"><%=data[i]['OrderProductNumber'] %>/.00%</td>
+					<td class="tdTextCenter"><%=Number(data[i]['OrderAmount']/10000).toFixed(4) %>万/.00%</td>
+					<td class="tdTextCenter"><%=data[i]['GuideAmount'] %>万</td>
+					<td class="tdTextCenter"><%=data[i]['BudgetAmount'] %>万</td>
+					<td class="tdTextCenter"><%=Number(data[i]['OrderAmount']/data[i]['GuideAmount']/10000*100).toFixed(2) %>%</td>
 				</tr>
 			<% } %>
 			

@@ -3,7 +3,7 @@ var router = express.Router();
 var com = require('./com');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-
+	req.session.curPage = "orderBudget";
 	var budgetType = req['query']['budgetType'];
 	var LoginUserName = req.session.LoginUserName;
 	var Name = req.session.Name;
@@ -15,17 +15,18 @@ router.get('/', function(req, res, next) {
 		com.executeSQL(selectSQL,function(err,rows){
 
 			com.executeSQL("select * from order_guide where Id = '"+rows[0]['OrderGuideId']+"'",function(err1,rows1){
-				console.log(rows1);
+				// console.log(rows1);
 				res.render('orderBudget',{
 					Name:Name,
 					budgetType:budgetType,
 					userInfo:rows,
-					guideInfo:rows1
+					guideInfo:rows1,
+					curPage:req.session.curPage
 					
 				});
-			})
+			});
 			
-		})
+		});
 		
 	}
 	else

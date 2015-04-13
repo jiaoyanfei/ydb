@@ -5,6 +5,8 @@
 	<meta charset="utf-8"/>
 	<link rel='stylesheet' href='/stylesheets/style.css' />
 	<script type="text/javascript" src="/javascripts/main.js" ></script>
+	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/ad.js"></script>
 </head>
 <body>
 <div class="global">
@@ -52,7 +54,7 @@
 				
 				
 
-			</div>
+	</div>
 	<div class="main">
 		
 		<div class="detail">
@@ -273,7 +275,7 @@
 						%>
 						<a href="<%=tempHref %>"><%=words2show %></a>
 						</div>
-						<a href=""><div class="detailCancle">取消已订</div></a>
+						<a href="orderCancle?Id=<%=data['Id'] %>"><div class="detailCancle">取消已订</div></a>
 						<div class="detailSubmit"><input type="submit" value="提交订单"></div>
 						
 						<% if(next !== undefined ){ %>

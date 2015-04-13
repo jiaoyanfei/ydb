@@ -325,21 +325,21 @@ div.masterLogout{
 div.main{
 	min-height: 600px;
 	margin: 120px auto 0 auto;
-
+	width: 90%;
 	display: inline-block;
 }
 div.billRank{
 	position: fixed;
 	top:30px;
 	/*height: 80px;*/
-	/*background-color: white;*/
+	background-color: rgba(255,255,255,0.9);
 	font-size: 40px;
 	font-weight: bolder;
 	text-align: left;
 	padding-left: 30px;
 	padding-top: 15px;
 	padding-bottom: 15px;
-	
+	width: 100%;
 	
 }
 
@@ -489,7 +489,7 @@ div.productNotFound{
 div.product{
 	display: inline-block;
 	float: left;
-	width: 200px;
+	width: 180px;
 	height: auto;
 	border: solid 2px white;
 	margin:5px 5px 0px 0px;
@@ -528,7 +528,7 @@ img.productPic{
 	max-width: 200px;
 	width: auto;
 	border: none;
-	height: 260px;
+	height: 240px;
 }
 
 div.price{
@@ -677,6 +677,12 @@ div.detailDataBottom{
 }
 
 table.detail{
+	width: 100%;
+}
+table.orderBudget{
+	width: 100%;
+}
+table.goldAgent{
 	width: 100%;
 }
 div.detailCollect{

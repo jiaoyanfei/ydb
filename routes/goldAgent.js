@@ -3,7 +3,7 @@ var router = express.Router();
 var com = require('./com');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-
+	req.session.curPage = "goldAgent";
 	
 	var LoginUserName = req.session.LoginUserName;
 	var Name = req.session.Name;
@@ -23,10 +23,11 @@ router.get('/', function(req, res, next) {
 		    {
 		    	
 		    	
-		    	console.log(rows);
+		    	// console.log(rows);
 		    	res.render('goldAgent',{
 					Name:Name,
-					data:rows
+					data:rows,
+					curPage:req.session.curPage
 					
 				});
 		    }
