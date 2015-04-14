@@ -816,6 +816,7 @@ div.informationTable{
 table.informationTable{
 	width: 100%;
 }
+table{border-collapse:collapse;}  
 
 td.tdTextLeft{
 	text-align: left;
@@ -829,6 +830,19 @@ td.tdTextRight{
 }
 td.maxWidth{
 	max-width: 50px;
+}
+.redColor{
+	color:red;
+}
+.bgLightblue{
+	background: #E0FFFF ;
+
+}
+.borderBlack{
+	border:solid 1px black;
+}
+.border{
+	border:solid 1px #E0FFFF;
 }
 .copyAndPaste:hover{
 	cursor: pointer;
@@ -912,6 +926,7 @@ div.budgetRight{
 	width: 89%;
 	display: inline-block;
 	vertical-align: top;
+	margin-left: -5px;
 }
 div.orderBudget{
 

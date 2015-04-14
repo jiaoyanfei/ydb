@@ -17,27 +17,27 @@
 		<div class="orderBudget">
 			<div class="budgetLeft">
 				
-					<div class="budgetItem">项目内容</div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=SerialOrderBudget">主题预算</a></div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=MucaiOrderBudget">波段预算</a></div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=TypeOrderBudget">款别预算</a></div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=ClassOrderBudget">品类预算</a></div>
-					<div class="budgetItem"><a href="orderBudget?budgetType=PricezoneOrderBudget">价格带预算</a></div>
+					<div class="budgetItem bgLightblue">项目内容</div>
+					<div class="budgetItem bgLightblue"><a href="orderBudget?budgetType=SerialOrderBudget">主题预算</a></div>
+					<div class="budgetItem bgLightblue"><a href="orderBudget?budgetType=MucaiOrderBudget">波段预算</a></div>
+					<div class="budgetItem bgLightblue"><a href="orderBudget?budgetType=TypeOrderBudget">款别预算</a></div>
+					<div class="budgetItem bgLightblue"><a href="orderBudget?budgetType=ClassOrderBudget">品类预算</a></div>
+					<div class="budgetItem bgLightblue"><a href="orderBudget?budgetType=PricezoneOrderBudget">价格带预算</a></div>
 
 			</div>
 			<div class="budgetRight">
 			<table class="orderBudget">
 				<tr>
-					<td class="tdTextCenter"><input class="pageSelect" name="budgetID"> </td>
-					<td class="tdTextCenter">公司指引</td>
-					<td class="tdTextCenter">自定义预算</td>
-					<td class="tdTextCenter">预算占比</td>
+					<td class="tdTextCenter bgLightblue"><input class="pageSelect" name="budgetID"> </td>
+					<td class="tdTextCenter bgLightblue">公司指引</td>
+					<td class="tdTextCenter bgLightblue">自定义预算</td>
+					<td class="tdTextCenter bgLightblue">预算占比</td>
 				</tr>
 				<tr>
-					<td class="tdTextCenter">总订货金额</td>
-					<td class="tdTextCenter"><%=userInfo[0]['GuideAmount'] %>万</td>
-					<td class="tdTextCenter"><input value="<%=userInfo[0]['BudgetAmount'] %>万" style="text-align:center"></td>
-					<td class="tdTextCenter">100%</td>
+					<td class="tdTextCenter border">总订货金额</td>
+					<td class="tdTextCenter border"><%=userInfo[0]['GuideAmount'] %>万</td>
+					<td class="tdTextCenter border"><input value="<%=userInfo[0]['BudgetAmount'] %>万" style="text-align:center"></td>
+					<td class="tdTextCenter border">100%</td>
 					
 				</tr>
 				<% var guidType = "SerialOrderGuide";
@@ -85,10 +85,10 @@
 				%>
 				<tr>
 					
-					<td class="tdTextCenter"><%=curBudgetName %></td>
-					<td class="tdTextCenter"><%=curGuide %></td>
-					<td class="tdTextCenter"><%=curBudget %>万</td>
-					<td class="tdTextCenter"><%=curBudgetPercent %></td>
+					<td class="tdTextCenter border"><%=curBudgetName %></td>
+					<td class="tdTextCenter border"><%=curGuide %></td>
+					<td class="tdTextCenter border"><%=curBudget %>万</td>
+					<td class="tdTextCenter border"><%=curBudgetPercent %></td>
 					
 				</tr>
 				<% }%>

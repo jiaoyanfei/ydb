@@ -15,25 +15,25 @@
 		
 		<table class="goldAgent">
 			<tr>
-				<td class="tdTextCenter">排名</td>
-				<td class="tdTextCenter">名称</td>
-				<td class="tdTextCenter">订款量/占比</td>
-				<td class="tdTextCenter">订数量/占比</td>
-				<td class="tdTextCenter">金额/占比</td>
-				<td class="tdTextCenter">公司指引</td>
-				<td class="tdTextCenter">自定义预算</td>
-				<td class="tdTextCenter">完成率</td>
+				<td class="tdTextCenter bgLightblue">排名</td>
+				<td class="tdTextCenter bgLightblue">名称</td>
+				<td class="tdTextCenter bgLightblue">订款量/占比</td>
+				<td class="tdTextCenter bgLightblue">订数量/占比</td>
+				<td class="tdTextCenter bgLightblue">金额/占比</td>
+				<td class="tdTextCenter bgLightblue">公司指引</td>
+				<td class="tdTextCenter bgLightblue">自定义预算</td>
+				<td class="tdTextCenter bgLightblue">完成率</td>
 			</tr>
 			<% for(i = 0;i<data.length;i++){ %>
 				<tr>
-					<td class="tdTextCenter">第<%=i+1 %>名</td>
-					<td class="tdTextCenter"><%=data[i]['Name'] %></td>
-					<td class="tdTextCenter"><%=data[i]['OrderStyleNumber'] %>/.00%</td>
-					<td class="tdTextCenter"><%=data[i]['OrderProductNumber'] %>/.00%</td>
-					<td class="tdTextCenter"><%=Number(data[i]['OrderAmount']/10000).toFixed(4) %>万/.00%</td>
-					<td class="tdTextCenter"><%=data[i]['GuideAmount'] %>万</td>
-					<td class="tdTextCenter"><%=data[i]['BudgetAmount'] %>万</td>
-					<td class="tdTextCenter"><%=Number(data[i]['OrderAmount']/data[i]['GuideAmount']/10000*100).toFixed(2) %>%</td>
+					<td class="tdTextCenter bgLightblue">第<%=i+1 %>名</td>
+					<td class="tdTextCenter bgLightblue"><%=data[i]['Name'] %></td>
+					<td class="tdTextCenter border"><%=data[i]['OrderStyleNumber'] %>/.00%</td>
+					<td class="tdTextCenter border"><%=data[i]['OrderProductNumber'] %>/.00%</td>
+					<td class="tdTextCenter bgLightblue"><%=Number(data[i]['OrderAmount']/10000).toFixed(4) %>万/.00%</td>
+					<td class="tdTextCenter border"><%=data[i]['GuideAmount'] %>万</td>
+					<td class="tdTextCenter bgLightblue"><%=data[i]['BudgetAmount'] %>万</td>
+					<td class="tdTextCenter bgLightblue"><%=Number(data[i]['OrderAmount']/data[i]['GuideAmount']/10000*100).toFixed(2) %>%</td>
 				</tr>
 			<% } %>
 			
