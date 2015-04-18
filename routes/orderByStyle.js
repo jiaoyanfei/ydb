@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 	{
 		
 		var flag = 0;
-		var selectSQL = "select * from products";
+		var selectSQL = "select * from products ";
 
 		
 		
@@ -51,6 +51,8 @@ router.get('/', function(req, res, next) {
 		{
 			if(flag > 0)
 				selectSQL += " and ";
+			else
+				selectSQL += " where ";
 			selectSQL += " ProductType='";
 			selectSQL += reqProductType;
 			selectSQL += "' ";
@@ -60,7 +62,8 @@ router.get('/', function(req, res, next) {
 		{
 			if(flag > 0)
 				selectSQL += " and ";
-
+			else
+				selectSQL += " where ";
 			selectSQL += " Mucai='";
 			selectSQL += reqMucai;
 			selectSQL += "' ";
@@ -70,6 +73,8 @@ router.get('/', function(req, res, next) {
 		{
 			if(flag > 0)
 				selectSQL += " and ";
+			else
+				selectSQL += " where ";
 			selectSQL += " ProductClass='";
 			selectSQL += reqProductClass;
 			selectSQL += "' ";
@@ -79,6 +84,8 @@ router.get('/', function(req, res, next) {
 		{
 			if(flag > 0)
 				selectSQL += " and ";
+			else
+				selectSQL += " where ";
 			selectSQL += " ProductSerial='";
 			selectSQL += reqProductSerial;
 			selectSQL += "' ";
@@ -88,6 +95,8 @@ router.get('/', function(req, res, next) {
 		{
 			if(flag > 0)
 				selectSQL += " and ";
+			else
+				selectSQL += " where ";
 			selectSQL += " ProductCode like '%";
     		selectSQL += reqProductCode;
     		selectSQL += "%'";

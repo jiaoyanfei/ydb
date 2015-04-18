@@ -71,12 +71,12 @@
 					
 					var curBudget = Math.round(Number(budget[i][1])/100 * userInfo[0]['BudgetAmount']);
 					var curBudgetName = budget[i][0];
-					var curGuide = "";
+					var curGuidePercent = "";
 					for(var j = 0;j<guide.length;j++)
 					{
 						if(guide[j].split(':')[0] == budget[i][0] )
 						{
-							curGuide = guide[j].split(':')[1];
+							curGuidePercent = guide[j].split(':')[1];
 							break;
 						}
 					}
@@ -86,7 +86,7 @@
 				<tr>
 					
 					<td class="tdTextCenter border"><%=curBudgetName %></td>
-					<td class="tdTextCenter border"><%=curGuide %></td>
+					<td class="tdTextCenter border"><%=curGuidePercent %></td>
 					<td class="tdTextCenter border"><%=curBudget %>万</td>
 					<td class="tdTextCenter border"><%=curBudgetPercent %></td>
 					

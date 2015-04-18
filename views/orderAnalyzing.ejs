@@ -4,26 +4,31 @@
 	<title>易订宝</title>
 	<meta charset="utf-8"/>
 	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script type="text/javascript" src="/javascripts/main.js" ></script>
 	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/ad.js"></script>
 </head>
 <body>
 <div class="global">
 	<% include nav %>
+	<% include menu %>
+	<% include searchColumn %>
 	<div class="main">
-		<div class="orderAnalyzing">
+		<div class="orderBudget">
 			<div class="budgetLeft">
 				
-					<div class="budgetItem">项目内容</div>
-					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=SerialOrderAnalyzing">主题分析</a></div>
-					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=MucaiOrderAnalyzing">波段分析</a></div>
-					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=ClassOrderAnalyzing">品类分析</a></div>
-					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=TypeOrderAnalyzing">款别分析</a></div>
-					
-					<div class="budgetItem"><a href="orderAnalyzing?analyzingType=PricezoneOrderAnalyzing">价格带分析</a></div>
+					<div class="budgetItem bgLightblue">项目内容</div>
+					<div class="budgetItem bgLightblue"><a href="orderAnalyzing?budgetType=SerialOrderBudget">主题分析</a></div>
+					<div class="budgetItem bgLightblue"><a href="orderAnalyzing?budgetType=MucaiOrderBudget">波段分析</a></div>
+					<div class="budgetItem bgLightblue"><a href="orderAnalyzing?budgetType=TypeOrderBudget">款别分析</a></div>
+					<div class="budgetItem bgLightblue"><a href="orderAnalyzing?budgetType=ClassOrderBudget">品类分析</a></div>
+					<div class="budgetItem bgLightblue"><a href="orderAnalyzing?budgetType=PricezoneOrderBudget">价格带分析</a></div>
 
 			</div>
-			<table class="orderAnalyzing">
+			<div class="budgetRight">
+			<table class="orderBudget">
+				
+
 				<tr>
 					
 					<td class="tdTextCenter">名称</td>
@@ -34,44 +39,91 @@
 					<td class="tdTextCenter">公司指引</td>
 					<td class="tdTextCenter">自定义预算</td>
 				</tr>
-				
-				<% var analyzingType = "SerialOrderGuide";
-				switch(analyzingType)
+				<% var guidType = "SerialOrderGuide";
+				switch(budgetType)
 				{
-					case 'SerialOrderAnalyzing':
-						analyzingType = "SerialOrderGuide";
+					case 'SerialOrderBudget':
+						guidType = "SerialOrderGuide";
 						break;
-					case 'TypeOrderAnalyzing':
-						analyzingType = "TypeOrderGuide";
+					case 'TypeOrderBudget':
+						guidType = "TypeOrderGuide";
 						break;
-					case 'ClassOrderAnalyzing':
-						analyzingType = "ClassOrderGuide";
+					case 'ClassOrderBudget':
+						guidType = "ClassOrderGuide";
 						break;
-					case 'MucaiOrderAnalyzing':
-						analyzingType = "MucaiOrderGuide";
+					case 'MucaiOrderBudget':
+						guidType = "MucaiOrderGuide";
 						break;
-					case 'PricezoneOrderAnalyzing':
-						analyzingType = "PricezoneOrderGuide";
+					case 'PricezoneOrderBudget':
+						guidType = "PricezoneOrderGuide";
 						break;
 				}
-				var Analyzing = userInfo[0][analyzingType].split(',');
-
-				var guide = guideInfo[0][analyzingType].split(',');
+				var ordersRowType = 'Product'+guidType.substr(0,guidType.length-10);
+				if(guidType.substr(0,guidType.length-10) == "Pricezone")
+					ordersRowType = "PriceZone";
+				else if(guidType.substr(0,guidType.length-10) == "Mucai")
+					ordersRowType = guidType.substr(0,guidType.length-10);
 				
-				for(var i = 0;i<Analyzing.length;i++)
+				var budget = userInfo[0][budgetType].split(',');
+				var guide = guideInfo[0][guidType].split(',');
+
+				budget.typeNum = 0;
+				budget.SKU = 0;
+				budget.num = 0;
+				budget.amount = 0;
+
+				for(var i = 0;i<budget.length;i++)
 				{
-					Analyzing[i] = Analyzing[i].split(':');
-					var curAnalyzingPercent = Analyzing[i][1];
-					Analyzing[i][1] =  Analyzing[i][1].substr(0,Analyzing[i][1].length-1);
+					budget[i] = budget[i].split(':');
+					budget[i].typeNum = 0;
+					budget[i].SKU = 0;
+					budget[i].num = 0;
+					budget[i].amount = 0;
+					console.log(budget[i][0]+"   "+orders[0][ordersRowType]);
+					for(var j = 0;j<orders.length;j++)
+					{
+						if(budget[i][0] == orders[j][ordersRowType])
+						{
+							budget[i].typeNum ++;
+							budget[i].SKU ++;
+							budget[i].num += orders[j]["UserOrderNumber"];
+							budget[i].amount += orders[j]["UserOrderAmount"];
+
+
+						}
+						
+						
+					}
+					budget.typeNum += budget[i].typeNum;
+					budget.SKU += budget[i].SKU;
+					budget.num += budget[i].num;
+					budget.amount += budget[i].amount;
+				}
+
+				for(var i = 0;i<budget.length;i++)
+				{
 					
-					var curAnalyzing = Math.round(Number(Analyzing[i][1])/100 * userInfo[0]['AnalyzingAmount']);
-					var curAnalyzingName = Analyzing[i][0];
+					var curBudgetPercent = budget[i][1];
+					budget[i][1] =  budget[i][1].substr(0,budget[i][1].length-1);
+					
+					var curBudget = Math.round(Number(budget[i][1])/100 * userInfo[0]['BudgetAmount']);
+					var curName = budget[i][0];
+					var curGuidePercent = "";
 					var curGuide = "";
+					var curSKU = budget[i].SKU;
+					var curSKUPercent = (curSKU/budget.SKU*100).toFixed(1);
+					var curNum = budget[i].num;
+					var curNumPercent = (curNum/budget.num*100).toFixed(1);
+					var curTypeNum = budget[i].typeNum;
+					var curTypeNumPercent = (curTypeNum/budget.typeNum*100).toFixed(1);
+					var curAmount = budget[i].amount.toFixed(4)/10000;
+					var curAmountPercent = (budget[i].amount/budget.amount*100).toFixed(1);
 					for(var j = 0;j<guide.length;j++)
 					{
-						if(guide[j].split(':')[0] == Analyzing[i][0] )
+						if(guide[j].split(':')[0] == budget[i][0] )
 						{
-							curGuide = guide[j].split(':')[1];
+							curGuidePercent = guide[j].split(':')[1];
+							curGuide = Math.round(Number(curGuidePercent.substr(0,curGuidePercent.length-1))/100 * userInfo[0]['GuideAmount']);
 							break;
 						}
 					}
@@ -80,21 +132,25 @@
 				%>
 				<tr>
 					
-					<td class="tdTextCenter"><%=curAnalyzingName %></td>
-					<td class="tdTextCenter"><%=curGuide %></td>
-					<td class="tdTextCenter"><%=curAnalyzing %>万</td>
-					<td class="tdTextCenter"><%=curAnalyzingPercent %></td>
+					<td class="tdTextCenter border"><%=curName %></td>
+					<td class="tdTextCenter border"><%=curTypeNum %>/<%=curTypeNumPercent %>%</td>
+					<td class="tdTextCenter border"><%=curSKU %>/<%=curSKUPercent %>%</td>
+					<td class="tdTextCenter border"><%=curNum %>/<%=curNumPercent %>%</td>
+					<td class="tdTextCenter border"><%=curAmount %>万/<%=curAmountPercent %>%</td>
+					<td class="tdTextCenter border"><%=curGuide %>万/<%=curGuidePercent %></td>
+					<td class="tdTextCenter border"><%=curBudget %>万/<%=curBudgetPercent %></td>
 					
 				</tr>
 				<% }%>
 				
 			</table>
-			<div id="save" style="text-align:center">保存</div>
+			
+			</div>
 		</div>
-		
-		<% include menu %>
 	</div>
 </div>
 
 </body>
 </html>
+
+
