@@ -4,19 +4,164 @@
 	<title>易订宝</title>
 	<meta charset="utf-8"/>
 	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script type="text/javascript" src="/javascripts/main.js" ></script>
 	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/ad.js"></script>
 </head>
 <body>
 <div class="global">
 	<% include nav %>
+	<% include menu %>
 	<% include searchColumn %>
 	<div class="main">
-		
-		
-		<% include menu %>
+		<div class="orderBudget">
+			<div class="budgetLeft">
+				
+					<div class="budgetItem bgLightblue">项目内容</div>
+					<div class="budgetItem bgLightblue"><a href="universalAnalysis?budgetType=SerialOrderBudget">万能分析</a></div>
+					<div class="budgetItem bgLightblue"><a href="universalAnalysis?budgetType=MucaiOrderBudget">款别品类</a></div>
+					<div class="budgetItem bgLightblue"><a href="universalAnalysis?budgetType=TypeOrderBudget">款别主题</a></div>
+					<div class="budgetItem bgLightblue"><a href="universalAnalysis?budgetType=ClassOrderBudget">主题品类</a></div>
+					<div class="budgetItem bgLightblue"><a href="universalAnalysis?budgetType=PricezoneOrderBudget">波段主题</a></div>
+
+			</div>
+			<div class="budgetRight">
+			<table class="orderBudget">
+				
+
+				<tr>
+					
+					<td class="tdTextCenter bgLightblue">名称</td>
+					<td class="tdTextCenter bgLightblue">品类</td>
+					<td class="tdTextCenter bgLightblue">订款量</td>
+					<td class="tdTextCenter bgLightblue">SKU</td>
+					<td class="tdTextCenter bgLightblue">订数量</td>
+					<td class="tdTextCenter bgLightblue">金额</td>
+					<td class="tdTextCenter bgLightblue">金额占比</td>
+					
+				</tr>
+				<% var guidType = "SerialOrderGuide";
+				switch(budgetType)
+				{
+					case 'SerialOrderBudget':
+						guidType = "SerialOrderGuide";
+						break;
+					case 'TypeOrderBudget':
+						guidType = "TypeOrderGuide";
+						break;
+					case 'ClassOrderBudget':
+						guidType = "ClassOrderGuide";
+						break;
+					case 'MucaiOrderBudget':
+						guidType = "MucaiOrderGuide";
+						break;
+					case 'PricezoneOrderBudget':
+						guidType = "PricezoneOrderGuide";
+						break;
+				}
+				var ordersRowType = 'Product'+guidType.substr(0,guidType.length-10);
+				if(guidType.substr(0,guidType.length-10) == "Pricezone")
+					ordersRowType = "PriceZone";
+				else if(guidType.substr(0,guidType.length-10) == "Mucai")
+					ordersRowType = guidType.substr(0,guidType.length-10);
+				
+				var budget = userInfo[0][budgetType].split(',');
+				
+
+				budget.typeNum = 0;
+				budget.SKU = 0;
+				budget.num = 0;
+				budget.amount = 0;
+				
+				for(var i = 0;i<budget.length;i++)
+				{
+					budget[i] = budget[i].split(':');
+					budget[i].typeNum = 0;
+					budget[i].SKU = 0;
+					budget[i].num = 0;
+					budget[i].amount = 0;
+					console.log(budget[i][0]+"   "+orders[0][ordersRowType]);
+					var tempOrders = [];
+					for(var j = 0;j<orders.length;j++)
+					{
+						if(budget[i][0] == orders[j][ordersRowType])
+						{
+							
+							budget[i].SKU ++;
+							budget[i].num += orders[j]["UserOrderNumber"];
+							budget[i].amount += orders[j]["UserOrderAmount"];
+
+							var flag = 0;
+							for(var k = 0;k<tempOrders.length;k++)
+							{
+								if(orders[j]['ProductId'] == tempOrders[k]['ProductId'])
+								{
+									flag = 1;
+									break;
+								}
+							}
+							if(flag == 0)
+							{
+								tempOrders.push(orders[j]);
+								budget[i].typeNum ++;
+							}
+						}
+						
+							
+					}
+					
+					
+
+
+					budget.typeNum += budget[i].typeNum;
+					budget.SKU += budget[i].SKU;
+					budget.num += budget[i].num;
+					budget.amount += budget[i].amount;
+				}
+
+				for(var i = 0;i<budget.length;i++)
+				{
+					
+					var curBudgetPercent = budget[i][1];
+					budget[i][1] =  budget[i][1].substr(0,budget[i][1].length-1);
+					
+					var curBudget = Math.round(Number(budget[i][1])/100 * userInfo[0]['BudgetAmount']);
+					var curName = budget[i][0];
+					var curSKU = budget[i].SKU;
+					
+					var curNum = budget[i].num;
+					
+					var curTypeNum = budget[i].typeNum;
+					var curAmount = budget[i].amount;
+					var curAmountPercent = (budget[i].amount/budget.amount*100).toFixed(1);
+					
+					
+					
+				%>
+				<tr>
+					
+					<td class="tdTextCenter border"><%=curName %></td>
+					<td class="tdTextCenter border bgLightblue"><%=curNum %></td>
+					<td class="tdTextCenter border"><%=curTypeNum %></td>
+					<td class="tdTextCenter border bgLightblue"><%=curSKU %></td>
+					<td class="tdTextCenter border"><%=curNum %></td>
+					
+					<td class="tdTextCenter border bgLightblue"><%=curAmount %></td>
+					<td class="tdTextCenter border"><%=curAmountPercent %>%</td>
+					
+					
+					
+				</tr>
+				<% }%>
+				
+			</table>
+			
+			</div>
+		</div>
 	</div>
 </div>
 
 </body>
 </html>
+
+

@@ -31,13 +31,13 @@
 
 				<tr>
 					
-					<td class="tdTextCenter">名称</td>
-					<td class="tdTextCenter">订款量/占比</td>
-					<td class="tdTextCenter">SKU/占比</td>
-					<td class="tdTextCenter">顶数量/占比</td>
-					<td class="tdTextCenter">金额/占比</td>
-					<td class="tdTextCenter">公司指引</td>
-					<td class="tdTextCenter">自定义预算</td>
+					<td class="tdTextCenter bgLightblue">名称</td>
+					<td class="tdTextCenter bgLightblue">订款量/占比</td>
+					<td class="tdTextCenter bgLightblue">SKU/占比</td>
+					<td class="tdTextCenter bgLightblue">订数量/占比</td>
+					<td class="tdTextCenter bgLightblue">金额/占比</td>
+					<td class="tdTextCenter bgLightblue">公司指引</td>
+					<td class="tdTextCenter bgLightblue">自定义预算</td>
 				</tr>
 				<% var guidType = "SerialOrderGuide";
 				switch(budgetType)
@@ -71,7 +71,7 @@
 				budget.SKU = 0;
 				budget.num = 0;
 				budget.amount = 0;
-
+				
 				for(var i = 0;i<budget.length;i++)
 				{
 					budget[i] = budget[i].split(':');
@@ -80,20 +80,38 @@
 					budget[i].num = 0;
 					budget[i].amount = 0;
 					console.log(budget[i][0]+"   "+orders[0][ordersRowType]);
+					var tempOrders = [];
 					for(var j = 0;j<orders.length;j++)
 					{
 						if(budget[i][0] == orders[j][ordersRowType])
 						{
-							budget[i].typeNum ++;
+							
 							budget[i].SKU ++;
 							budget[i].num += orders[j]["UserOrderNumber"];
 							budget[i].amount += orders[j]["UserOrderAmount"];
 
-
+							var flag = 0;
+							for(var k = 0;k<tempOrders.length;k++)
+							{
+								if(orders[j]['ProductId'] == tempOrders[k]['ProductId'])
+								{
+									flag = 1;
+									break;
+								}
+							}
+							if(flag == 0)
+							{
+								tempOrders.push(orders[j]);
+								budget[i].typeNum ++;
+							}
 						}
 						
-						
+							
 					}
+					
+					
+
+
 					budget.typeNum += budget[i].typeNum;
 					budget.SKU += budget[i].SKU;
 					budget.num += budget[i].num;
@@ -132,13 +150,13 @@
 				%>
 				<tr>
 					
-					<td class="tdTextCenter border"><%=curName %></td>
+					<td class="tdTextCenter border bgLightblue"><%=curName %></td>
 					<td class="tdTextCenter border"><%=curTypeNum %>/<%=curTypeNumPercent %>%</td>
-					<td class="tdTextCenter border"><%=curSKU %>/<%=curSKUPercent %>%</td>
+					<td class="tdTextCenter border bgLightblue"><%=curSKU %>/<%=curSKUPercent %>%</td>
 					<td class="tdTextCenter border"><%=curNum %>/<%=curNumPercent %>%</td>
-					<td class="tdTextCenter border"><%=curAmount %>万/<%=curAmountPercent %>%</td>
+					<td class="tdTextCenter border bgLightblue"><%=curAmount %>万/<%=curAmountPercent %>%</td>
 					<td class="tdTextCenter border"><%=curGuide %>万/<%=curGuidePercent %></td>
-					<td class="tdTextCenter border"><%=curBudget %>万/<%=curBudgetPercent %></td>
+					<td class="tdTextCenter border bgLightblue"><%=curBudget %>万/<%=curBudgetPercent %></td>
 					
 				</tr>
 				<% }%>

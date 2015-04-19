@@ -41,6 +41,7 @@ router.post('/',function (req,res){
 				req.session.Name = dbName;
 				req.session.Id = dbId;
 				req.session.CollectionSet = dbCollectionSet;
+				req.session.FinishRate = 0;
 				// console.log(req.session);
 				res.redirect('orderByStyle?page=1');
 				

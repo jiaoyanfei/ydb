@@ -15,7 +15,7 @@ body {
 	/*padding: 50px;*/
 	font: 15px Verdana, 'Microsoft YaHei',sans-serif;
 	min-width: 970px;
-
+	
 	
 }
 
@@ -301,7 +301,7 @@ div.nav{
 div.masterName{
 	padding-top: 5px;
 	padding-bottom: 5px;
-	margin-left: 50px;
+	margin-left: 30px;
 	float: left;
 	color: #444;
 	
@@ -314,10 +314,15 @@ div.masterBill{
 	margin-left: 100px;
 	float: left;
 	color: #444;
+	display: inline-block;
+}
+div.colorRed{
+	display: inline-block;
+	color: red;
 }
 div.masterLogout{
 	margin-top: 7px;
-	margin-right: 100px;
+	margin-right: 30px;
 	float: right;
 	color: #444;
 }
@@ -325,32 +330,102 @@ div.masterLogout{
 div.main{
 	min-height: 600px;
 	margin: 160px auto 0 auto;
-	width: 88%;
+	width: 84%;
 	display: inline-block;
 }
-div.billRank{
+div.ad{
+	display: inline-block;
 	position: fixed;
 	top:30px;
-	/*height: 80px;*/
-	background-color: rgba(255,255,255,0.9);
-	font-size: 40px;
-	font-weight: bolder;
-	text-align: left;
-	padding-left: 30px;
-	padding-top: 25px;
-	padding-bottom: 25px;
+	height: 100px;
+	
+	background-color: rgba(255,255,255,1);
+	
 	width: 100%;
 	
 }
+a.mar{
+	color:black;
+}
+div.adLeft{
+	float: left;
+	display: inline-block;
+	height: 100%;
+	color: orange;
+	font-family: huawenxinwei,"华文新魏";
+	font-size: 60px;
+	font-weight: bolder;
+	text-align: left;
+	
+	width: 20%;
+}
+div.adCenter{
+	display: inline-block;
+	width: 60%;
+	height: 100%;
+}
+div.adRight{
+	display: inline-block;
+	width: 15%;
+	height: 100%;
+}
 
+div.marquee{
+	height: 100%;
+	float: left;
+	display: inherit;
+	width: 33%;
+}
+div.mar{
+	display: inline-block;
+	margin-left: 0px;
+	width: 100%;
+}
+div.marLeft{
+	width: 50%;
+	float: left;
+	display: inline-block;
+}
+img.marLeft{
+	width: auto;
+	height: 100px;
+}
+div.marRight{
+	width: 50%;
+	display: inline-block;
+	line-height: 1.1;
+	font-size: 13px;
+	
+}
+div.marR1{
+
+}
+div.marR2{
+	color: red;
+}
+div.marR3{
+	color: red;
+}
+div.marR4{
+	
+}
+div.marR5{
+	
+}
+div.marR6{
+	
+}
+div.marR7{
+	
+}
 div.rank{
 	/*border: solid 2px #777;*/
-	width: 80%;
+	width: 94%;
 	min-width: 900px;
-	height: 28px;
+	height: 35px;
 	position: fixed;
 	z-index: 5;
-	top: 120px;
+	top: 130px;
 	background-color: lightblue;
 }
 .rankTop{
@@ -358,19 +433,14 @@ div.rank{
 }
 div.rankByBrand,div.rankByProductType,div.rankByMucai,
 div.rankByProductClass,div.rankByProductSerial,
-div.rankByOrderAmount{
+div.rankByOrderAmount,div.rankByOrderNumber{
 	float: left;
 	display: inline-block;
-	margin: 4px 2% auto 0;
+	margin: 5px 2% auto 0;
 	
 }
 
-div.rankByOrderNumber{
-	float: left;
-	display: inline-block;
-	margin: 7px 0 auto 0;
-	
-}
+
 div.toHome{
 	margin-top: 5px;
 	
@@ -381,7 +451,7 @@ div.searchByProductCode{
 	float: right;
 	
 	
-	margin-right: 40px;
+
 	font-size: 15px;
 }
 input{
@@ -422,9 +492,9 @@ select.selectMain{
 div.menu{
 	position: fixed;
 	width: 10%;
-	top: 100px;
+	top: 162px;
 	min-width: 80px;
-	right: 20px;
+	right: 50px;
 	padding-bottom:20px; 
 	
 	float: right;
@@ -455,12 +525,44 @@ a.list-group-item{
 	margin-top:1px;
 	display: block;
 	text-decoration: none;
-	padding:6px 0px;
-	text-align: center;
+	padding-left:20px;
+
+	text-align: left;
+	line-height: 1.8;
+}
+
+a.list-group-item-left{
+	border-radius:0;
+	/*background: #27272b;*/
+	background-color: lightblue;
+	/*color:#ccc;*/
+	color: black;
+	border:0;
+	margin-top:1px;
+	display: block;
+	text-decoration: none;
+	padding-left:5px;
+
+	text-align: left;
+	line-height: 1.8;
 }
 a.list-group-item:hover{
 	/*background:black;*/
 	/*color:white;*/
+}
+.memuSeperate{
+	border-radius:0;
+	background-color: lightblue;
+	
+	color: gray;
+	border:0;
+	margin-top:1px;
+	display: block;
+	text-decoration: none;
+
+	padding-left: 5px;
+	text-align: left;
+	line-height: 1.5;
 }
 a {
 	color: #00B7FF;
@@ -489,7 +591,7 @@ div.productNotFound{
 div.product{
 	display: inline-block;
 	float: left;
-	width: 183px;
+	width: 190px;
 	height: auto;
 	border: solid 2px white;
 	margin:5px 5px 0px 0px;
@@ -526,7 +628,7 @@ div.productBottom{
 }
 img.productPic{
 	max-width: 200px;
-	width: 182px;
+	width: 190px;
 	border: none;
 	height: 240px;
 }
@@ -557,7 +659,7 @@ div.detail{
 	border: solid 2px lightblue;
 	border-radius: 2px;
 	min-width: 500px;
-	width: 95%;
+	width: 99%;
 	min-height: 450px;
 	display: inline-block;
 	
@@ -566,7 +668,7 @@ div.detail{
 div.detailTitle{
 	position: fixed;
 	top:130px;
-	width: 85%;
+	width: 93%;
 	background-color: #222;
 	background-color: lightblue;
 	font-size: 17px;
@@ -797,6 +899,7 @@ h3.commentWordTitle{
 }
 div.commentWord{
 	margin-left: 20px;
+	display: inline-block;
 }
 div.commentsAthor{
 	display: inline-block;
@@ -929,41 +1032,6 @@ div.budgetRight{
 	margin-left: -5px;
 }
 div.orderBudget{
-
+	line-height: 1.7;
 	width: 100%;
-}
-@media screen and (max-width: 1200px) {
-    div.rankByBrand,div.rankByProductType,div.rankByMucai,
-	div.rankByProductClass,div.rankByProductSerial,
-	div.rankByOrderAmount{
-		float: left;
-		display: inline-block;
-		margin: 4px 1% auto 0;
-		
-	}
-	div.rank{
-		border: solid 2px #777;
-		width: 85%;
-		min-width: 830px;
-		height: 32px;
-	
-	}
-
-	div.searchByProductCode{
-	
-		display: inline-block;
-		margin-top: -2px;
-		margin-right: -2px;
-		font-size: 15px;
-	}
-}
-
-
-@media screen and (max-width: 900px){
-		div.detailTitleLast{
-		display: inline-block;
-		height: 100%;
-		margin-left: 30%;
-
-	}
 }

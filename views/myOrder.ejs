@@ -21,7 +21,7 @@
 					<td class="bgLightblue">&nbsp&nbsp·&nbsp&nbsp数量统计</td>
 					<td>已订：<%=userInfo[0]['OrderStyleNumber'] %>款</td>
 					<td>最高订款量：<%=maxUserInfo[0]['maxOrderStyleNumber'] %>款</td>
-					<td>总款量：款</td>
+					<td>总款量：<%=allType %>款</td>
 				</tr>
 				<tr class="borderBlack">
 					<td class="bgLightblue">&nbsp&nbsp·&nbsp&nbsp订数统计</td>
@@ -33,7 +33,7 @@
 					<td class="bgLightblue">&nbsp&nbsp·&nbsp&nbsp金额统计</td>
 					<td>已订：￥<%=(Number(userInfo[0]['OrderAmount'])/10000).toFixed(4) %>万</td>
 					<td>最高金额：￥<%=(Number(maxUserInfo[0]['maxOrderAmount'])/10000).toFixed(4) %>万</td>				
-					<td>完成率：%</td>
+					<td>完成率：<%=finishRate %>%</td>
 				</tr>
 				<tr class="borderBlack">
 					<td class="bgLightblue">&nbsp&nbsp·&nbsp&nbspSKU分析</td>

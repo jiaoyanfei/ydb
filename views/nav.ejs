@@ -1,8 +1,36 @@
 <div class="nav">
 	<a href="orderByStyle"><div class="masterName">欢迎您，<%= Name %></div></a>
-	<div class="masterBill">  </div>
+	<div class="masterBill">
+	已订
+		<div class="colorRed" id = "OrderStyleNumber"></div>
+		款
+		<div class="colorRed" id = "OrderAmount"></div>
+		万元|预算
+		<div class="colorRed" id = "BudgetAmount"></div>
+		万元 完成率
+		<div class="colorRed" id = "FinishRate"></div>%
+	</div>
 	<a href="logout"> <div class="masterLogout">[注销]</div></a>
 </div>
-<div class="billRank" id="billRank">
-易订宝
+<div class="ad">
+	<div class="adLeft">易订宝</div>
+	<div class="adCenter">
+		<div class="marquee" id="top1">
+			
+		</div>
+		<div class="marquee">
+			<marquee direction="right" scrollamount="3" id="nextTop">
+				
+			</marquee>
+		</div>
+		<div class="marquee">
+			<marquee direction="right" scrollamount="3" id="rec">
+				
+			</marquee>
+		</div>
+	</div>
+	<div class="adRight">
+		<img src="12.2" width="100%" height="100%">
+	</div>
+
 </div>

@@ -26,15 +26,21 @@ router.get('/', function(req, res, next) {
 		    		com.executeSQL("select max(OrderStyleNumber) as maxOrderStyleNumber,max(OrderProductNumber) as maxOrderProductNumber,max(OrderAmount) as maxOrderAmount from user_info",function(err2,rows2){
 		    			com.executeSQL("select count(distinct ProductId,Color) as SKU from all_orders where Invalid = 0",function(err3,rows3){
 		    				com.executeSQL("select count(distinct ProductId,Color) as MSKU from all_orders where Invalid = 0 and CustomerId = "+req.session.Id,function(err4,rows4){
-		    					res.render('myOrder',{
-									Name:Name,
-									userInfo:rows,
-									orders:rows1,
-									maxUserInfo:rows2,
-									SKU:rows3,
-									MSKU:rows4,
-									curPage:req.session.curPage
-								});
+		    					com.executeSQL("select count(*) as allType from products",function(err5,rows5){
+		    						
+		    						res.render('myOrder',{
+										Name:Name,
+										userInfo:rows,
+										orders:rows1,
+										maxUserInfo:rows2,
+										SKU:rows3,
+										MSKU:rows4,
+										curPage:req.session.curPage,
+										finishRate:req.session.FinishRate,
+										allType:rows5[0]['allType']
+									});
+		    					});
+
 		    				});
 		    				
 		    			});
