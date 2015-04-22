@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="/javascripts/main.js" ></script>
 	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/ad.js"></script>
+	<script type="text/javascript" src="/javascripts/echarts/build/dist/echarts.js"></script>
 </head>
 <body>
 <div class="global">
@@ -14,6 +15,10 @@
 	<% include menu %>
 	<% include searchColumn %>
 	<div class="main">
+		<div id="main" style="height:400px;width:800px;"></div>
+
+	    
+
 		<div class="orderBudget">
 			<div class="budgetLeft">
 				
@@ -150,13 +155,13 @@
 				%>
 				<tr>
 					
-					<td class="tdTextCenter border bgLightblue"><%=curName %></td>
+					<td class="tdTextCenter border bgLightblue"><span id="name<%=i %>"><%=curName %></span></td>
 					<td class="tdTextCenter border"><%=curTypeNum %>/<%=curTypeNumPercent %>%</td>
 					<td class="tdTextCenter border bgLightblue"><%=curSKU %>/<%=curSKUPercent %>%</td>
 					<td class="tdTextCenter border"><%=curNum %>/<%=curNumPercent %>%</td>
-					<td class="tdTextCenter border bgLightblue"><%=curAmount %>万/<%=curAmountPercent %>%</td>
-					<td class="tdTextCenter border"><%=curGuide %>万/<%=curGuidePercent %></td>
-					<td class="tdTextCenter border bgLightblue"><%=curBudget %>万/<%=curBudgetPercent %></td>
+					<td class="tdTextCenter border bgLightblue"><span id="amount<%=i %>"><%=curAmount %></span>万/<%=curAmountPercent %>%</td>
+					<td class="tdTextCenter border"><span id="guide<%=i %>"><%=curGuide %></span>万/<%=curGuidePercent %></td>
+					<td class="tdTextCenter border bgLightblue"><span id="budget<%=i %>"><%=curBudget %></span>万/<%=curBudgetPercent %></td>
 					
 				</tr>
 				<% }%>
@@ -171,4 +176,196 @@
 </body>
 </html>
 
+<script type="text/javascript">
+	var category = [];
+	var amount = [];
+	var guide = [];
+	var budget = [];
+	var i = 0;
+    while($('#amount'+i).html() != undefined)
+    {
+    	category.push($('#name'+i).html());
+    	amount.push($('#amount'+i).html());
+    	
+    	guide.push($('#guide'+i).html());
+    	budget.push($('#budget'+i).html());
+    	i++;
+    }
+    var analyzeType = "主题分析";
+	switch('<%=budgetType%>')
+	{
+		case 'SerialOrderBudget':
+			analyzeType = "主题分析";
+			break;
+		case 'TypeOrderBudget':
+			analyzeType = "款别分析";
+			break;
+		case 'ClassOrderBudget':
+			analyzeType = "品类分析";
+			break;
+		case 'MucaiOrderBudget':
+			analyzeType = "波段分析";
+			break;
+		case 'PricezoneOrderBudget':
+			analyzeType = "价格带分析";
+			break;
+	}
 
+
+
+    require.config({
+        paths: {
+            echarts: './javascripts/echarts/build/dist/'
+        }
+    });
+    function bar()
+    {
+    require(
+    [
+        'echarts',
+        'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
+        'echarts/chart/bar',
+        'echarts/chart/pie'
+    ],
+    function (ec) {
+        var myChart = ec.init(document.getElementById('main'));
+        
+
+        var option = {
+	    title : {
+	        text: analyzeType,
+	        subtext: ''
+	    },
+	    tooltip : {
+	        trigger: 'axis'
+	    },
+	    legend: {
+	        data:['订货','指引','预算']
+	    },
+	    toolbox: {
+	        show : false,
+	        feature : {
+	            mark : {show: true},
+	            dataView : {show: true, readOnly: false},
+	            magicType : {
+	            	show: true, 
+	            	type: ['line', 'bar', 'pie'],
+	            	option: null
+	            },
+	            restore : {show: true},
+	            saveAsImage : {show: true}
+	        }
+	    },
+	    calculable : true,
+	    xAxis : [
+	        {
+	            type : 'category',
+	            data : category
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'value'
+	        }
+	    ],
+	    series : [
+	        {
+	            name:'订货',
+	            type:'bar',
+	            data:amount,
+	            itemStyle : { normal: {label : {show: true, position: 'top'}}}
+	        },
+	        {
+	            name:'指引',
+	            type:'bar',
+	            data:guide,
+	            itemStyle : { normal: {label : {show: true, position: 'top'}}}
+	        },
+	        {
+	            name:'预算',
+	            type:'bar',
+	            data:budget,
+	            itemStyle : { normal: {label : {show: true, position: 'top'}}}
+	        }
+			    ]
+			};                             
+		        myChart.setOption(option);
+		    }
+		);
+	}
+
+	bar();
+
+	var dataForPie = [];
+	for(var i = 0 ;i<category.length;i++)
+	{
+		dataForPie.push({name:category[i],value:amount[i]});
+	}
+	
+
+	function pie()
+	{
+		require(
+	    [
+	        'echarts',
+	        'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
+	        'echarts/chart/bar',
+	        'echarts/chart/pie'
+	    ],
+	    function (ec) {
+	        var myChart = ec.init(document.getElementById('main'));
+
+		var    option = {
+	    title : {
+	        text: analyzeType,
+	        subtext: '',
+	        x:'center'
+	    },
+	    tooltip : {
+	        trigger: 'item',
+	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+	    },
+	    legend: {
+	        orient : 'vertical',
+	        x : 'left',
+	        data:category
+	    },
+	    toolbox: {
+	        show : false,
+	        feature : {
+	            mark : {show: true},
+	            dataView : {show: true, readOnly: false},
+	            magicType : {
+	                show: true, 
+	                type: ['pie', 'funnel'],
+	                option: {
+	                    funnel: {
+	                        x: '25%',
+	                        width: '50%',
+	                        funnelAlign: 'left',
+	                        max: 1548
+	                    }
+	                }
+	            },
+	            restore : {show: true},
+	            saveAsImage : {show: true}
+	        }
+	    },
+	    calculable : true,
+	    series : [
+	        {
+	            name:'访问来源',
+	            type:'pie',
+	            radius : '55%',
+	            center: ['50%', '60%'],
+	            data:dataForPie
+	        }
+			    ]
+			};
+			                                    
+			        myChart.setOption(option);
+			    }
+			);
+	}    
+	// pie();
+</script>
