@@ -18,10 +18,10 @@ router.post('/', function(req, res, next) {
 		insertSQL += '"';
 		insertSQL += ')';
 		com.executeSQL(insertSQL, function(err, rows) {
-
+			res.redirect('detail?Id='+req['body']['Id']);
 		});
 
-		res.redirect('detail?Id='+req['body']['Id']);
+		
 	}
 	else
 	{

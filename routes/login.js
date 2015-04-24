@@ -11,6 +11,7 @@ router.post('/',function (req,res){
 	var dbName = "";
 	var dbId = "";
 	var dbCollectionSet = "";
+	var dbDiscount = "";
 	var selectSQL = 'select * from user_info';
 	
 	com.executeSQL(selectSQL, function(err, rows) {
@@ -29,6 +30,7 @@ router.post('/',function (req,res){
 	    			dbName = String(rows[i]['Name']);
 	    			dbId = String(rows[i]['Id']);
 	    			dbCollectionSet = String(rows[i]['CollectionSet']);
+	    			dbDiscount = rows[i]['Discount'];
 	    			flag = 1;
 	    			break;
 	    		}
@@ -41,7 +43,9 @@ router.post('/',function (req,res){
 				req.session.Name = dbName;
 				req.session.Id = dbId;
 				req.session.CollectionSet = dbCollectionSet;
+				req.session.Discount = dbDiscount;
 				req.session.FinishRate = 0;
+				console.log(req.session);
 				// console.log(req.session);
 				res.redirect('orderByStyle?page=1');
 				
