@@ -131,9 +131,11 @@ router.get('/', function(req, res, next) {
 		}
 		
 		com.executeSQL(selectSQL, function(err, rows) {
-		    if (err)
+			console.log(rows.length);
+		    if (err || rows.length == 0)
 		    {
 		    	console.log(err);
+		    	res.redirect('orderByStyle');
 		    }
 		    else
 		    {
@@ -180,7 +182,7 @@ router.get('/', function(req, res, next) {
 						    		// }
 						    	}
 								
-						    	if(current['MatchIds'] != null && current['MatchIds']!="")
+						    	if(current != undefined)
 						    	{
 							    	var matches = String(current['MatchIds']).split(',');
 							    	var selectSQL1 = 'select * from products where ';
@@ -217,17 +219,8 @@ router.get('/', function(req, res, next) {
 						    	else
 						    	{
 
-									res.render('detail',{
-										Name:Name,
-										curPage:req.session.curPage,
-										data:current,
-										last:last,
-										next:nex,
-										reccomendData:[],
-										comments:rows3,
-										ordered:rows4,
-										userInfo:rows5
-									});
+									console.log(err);
+		    						res.send('The page you are trying to access does not exist!');
 						    	}
 			    			});
 						});

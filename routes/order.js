@@ -8,39 +8,45 @@ router.post('/', function(req, res, next) {
 
 	if(com.isLogined(req.session) )
 	{
-		console.log(req.query);
+		console.log(req.body);
 		var LoginUserName = req.session.LoginUserName;
 		var Name = req.session.Name;
 		var Id = req['body']['Id'];
-		var selectSQL ="select * from products where Id ='";
+		var selectSQL ="select * from all_orders where Id =";
 			selectSQL += Id;
-			selectSQL += "'";
+			selectSQL += " and CustomerId = ";
+			selectSQL += req.session.Id;
 			
 
 		com.executeSQL(selectSQL, function(err, rows) {
-		    if (err)
+		    if (!err)
 		    {
-		    	console.log(err);
+		    	if(rows.length != 0)
+		    	{
+		    		var selectSQL1 ="delete from all_orders where Id =";
+					selectSQL1 += Id;
+					selectSQL1 += " and CustomerId = ";
+					selectSQL1 += req.session.Id;
+			    	com.executeSQL(selectSQL1, function(err1, rows1) {
+					    if (!err1)
+					    {
+					    	res.redirect('orderByStyle');
+					    }
+					    else
+					    {
+					    	console.log(err1);
+					    	res.redirect('orderByStyle');
+					    }
+			    
+					});
+		    	}
+		    	
 		    }
 		    else
 		    {
-		    	
-			    var selectSQL1 ="select * from products where Id ='";
-				selectSQL1 += Id;
-				selectSQL1 += "'";
-		    	com.executeSQL(selectSQL1, function(err1, rows1) {
-				    if (err)
-				    {
-				    	console.log(err);
-				    }
-				    else
-				    {
-				    	
-				    	
-				    	res.redirect('detail?Id='+Id);
-				    }
-		    
-				});
+		    	console.log(err);
+		    	res.redirect('orderByStyle');
+			    
 		  	}
 		    
 		});

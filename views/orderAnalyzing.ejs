@@ -15,7 +15,12 @@
 	<% include menu %>
 	<% include searchColumn %>
 	<div class="main">
-		<div id="main" style="height:400px;width:800px;"></div>
+		<div class="chartSelect">
+			<div class="pie" onclick="pie()"><img src="images/pie.jpg" class="pie"></div>
+			<div class="bar" onclick="bar()"><img src="images/bar.jpg" class="bar"></div>
+			
+		</div>
+		<div id="main" class="chartInit"></div>
 
 	    
 
@@ -220,6 +225,7 @@
     });
     function bar()
     {
+    	document.getElementById("main").className = "chart";
     require(
     [
         'echarts',
@@ -294,8 +300,6 @@
 		);
 	}
 
-	bar();
-
 	var dataForPie = [];
 	for(var i = 0 ;i<category.length;i++)
 	{
@@ -305,6 +309,7 @@
 
 	function pie()
 	{
+		document.getElementById("main").className = "chart";
 		require(
 	    [
 	        'echarts',

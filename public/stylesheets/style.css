@@ -1039,3 +1039,38 @@ div.orderBudget{
 marquee{
 	display: inline-block;
 }
+div.chartSelect{
+	width: 100%;
+	display: inherit;
+}
+div.chartInit{
+	height:0px;width:0px;
+}
+div.chart{
+	height:400px;width:800px;
+}
+div.bar{
+
+	float: right;
+	display: inline-block;
+	margin-right: 15px;
+}
+div.bar:hover{
+	
+	cursor: pointer;
+}
+div.pie{
+	display: inline-block;
+	float: right;
+}
+div.pie:hover{
+	cursor: pointer;
+}
+img.bar{
+	width: 40px;
+	height: 35px;
+}
+img.pie{
+	width: 40px;
+	height: 35px;
+}
