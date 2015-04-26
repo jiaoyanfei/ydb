@@ -8,8 +8,6 @@ router.get('/', function(req, res, next) {
 
 	var id = req['query']['Id'];
 	var curPage = req['query']['curPage'];
-	var LoginUserName = req.session.LoginUserName;
-	var Name = req.session.Name;
 
 	if(curPage == "orderByStyle")
 	{
@@ -24,14 +22,14 @@ router.get('/', function(req, res, next) {
 			case 'alreadyOrdered':
 			{
 				selectSQL = "select * from products where Id in ( select ProductId from all_orders where CustomerId = ";
-				selectSQL += req.session.Id;
+				selectSQL += req.session.userInfo.Id;
 				selectSQL += " and Invalid = 0 )";
 			}
 			break;
 			case 'notOrder':
 			{
 				selectSQL = "select * from products where Id not in (select ProductId from all_orders where CustomerId = ";
-				selectSQL += req.session.Id;
+				selectSQL += req.session.userInfo.Id;
 				selectSQL += " and Invalid = 0 )";
 			}
 			break;
@@ -43,7 +41,7 @@ router.get('/', function(req, res, next) {
 			case 'collectionSet':
 			{
 				selectSQL = "select * from products where ";
-				var ids = req.session.CollectionSet.split(',');
+				var ids = req.session.userInfo.CollectionSet.split(',');
 				// console.log(ids);
 		    	if(ids.length != 0)
 		    	{
@@ -70,7 +68,7 @@ router.get('/', function(req, res, next) {
 			case 'deleted':
 			{
 				selectSQL = "select * from products where Id in ( select ProductId from all_orders where CustomerId = ";
-				selectSQL += req.session.Id;
+				selectSQL += req.session.userInfo.Id;
 				selectSQL += " and Invalid = 1 )";
 			}
 			break;
@@ -131,7 +129,7 @@ router.get('/', function(req, res, next) {
 		}
 		
 		com.executeSQL(selectSQL, function(err, rows) {
-			console.log(rows.length);
+			
 		    if (err || rows.length == 0)
 		    {
 		    	console.log(err);
@@ -143,16 +141,20 @@ router.get('/', function(req, res, next) {
 		    	//res.send(rows);
 		    	
 		    		com.executeSQL("select * from comments where ProductId="+id,function(err3,rows3){
-		    			var selectSQL4 = "select * from all_orders where CustomerId = ";
-		    			selectSQL4 += req.session.Id;
-		    			selectSQL4 += " and ProductId = ";
+		    			var selectSQL4 = 'select * from all_orders where Invalid =';
+		    			if(req.session.curPage == 'deleted')
+		    			{
+		    				selectSQL4 += ' 1 ';
+		    			}
+		    			else
+		    			{
+		    				selectSQL4 += ' 0 ';
+		    			}
+		    			selectSQL4 += ' and CustomerId = ';
+		    			selectSQL4 += req.session.userInfo.Id;
+		    			selectSQL4 += ' and ProductId = ';
 		    			selectSQL4 += id;
 						com.executeSQL(selectSQL4,function(err4,rows4){
-							
-							
-
-							com.executeSQL("select * from user_info where Id = "+req.session.Id,function(err5,rows5){
-								
 								var current = undefined;
 								var last =undefined;
 								var nex = undefined;						    	
@@ -182,7 +184,7 @@ router.get('/', function(req, res, next) {
 						    		// }
 						    	}
 								
-						    	if(current != undefined)
+						    	if(!err4)
 						    	{
 							    	var matches = String(current['MatchIds']).split(',');
 							    	var selectSQL1 = 'select * from products where ';
@@ -204,7 +206,7 @@ router.get('/', function(req, res, next) {
 							    	com.executeSQL(selectSQL1,function(err1,rows1){
 							    		// console.log(rows1);
 							    		res.render('detail',{
-											Name:Name,
+											Name:req.session.userInfo.Name,
 											curPage:req.session.curPage,
 											data:current,
 											last:last,
@@ -212,17 +214,16 @@ router.get('/', function(req, res, next) {
 											reccomendData:rows1,
 											comments:rows3,
 											ordered:rows4,
-											userInfo:rows5
+											userInfo:req.session.userInfo
 										});							    	
 						   			});
 								}
 						    	else
 						    	{
 
-									console.log(err);
+									
 		    						res.send('The page you are trying to access does not exist!');
 						    	}
-			    			});
 						});
 					});	
 		    	

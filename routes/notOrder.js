@@ -24,16 +24,12 @@ router.get('/', function(req, res, next) {
 	
 	console.log(peername);
 	
-	
-	var LoginUserName = req.session.LoginUserName;
-	var Name = req.session.Name;
-
 	if(com.isLogined(req.session) )
 	{
 		
 		var flag = 1;
 		var selectSQL = "select * from products where Id not in (select ProductId from all_orders where CustomerId = ";
-		selectSQL += req.session.Id;
+		selectSQL += req.session.userInfo.Id;
 		selectSQL += " and Invalid = 0 ) ";
 		if(reqBrand != undefined && reqBrand != "全部品牌")
 		{
@@ -147,11 +143,11 @@ router.get('/', function(req, res, next) {
 		    }
 		    else
 		    {
-				var selectSQL1 = "select * from all_orders where Invalid=0 and CustomerId="+req.session.Id;
+				var selectSQL1 = "select * from all_orders where Invalid=0 and CustomerId="+req.session.userInfo.Id;
 		    	com.executeSQL(selectSQL1,function(err1,rows1){
 		    		res.render("productList",{
 		    			ordered:rows1,
-						Name:Name,
+						Name:req.session.userInfo.Name,
 						data:rows,
 						pageLength:52,
 						page:reqPage,

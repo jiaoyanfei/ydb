@@ -24,9 +24,6 @@ router.get('/', function(req, res, next) {
 	
 	console.log(peername);
 
-	var LoginUserName = req.session.LoginUserName;
-	var Name = req.session.Name;
-
 	if(com.isLogined(req.session) )
 	{
 		
@@ -82,11 +79,11 @@ router.get('/', function(req, res, next) {
 				    }
 				    else
 				    {
-				    	var selectSQL1 = "select * from all_orders where Invalid=0 and CustomerId="+req.session.Id;
+				    	var selectSQL1 = "select * from all_orders where Invalid=0 and CustomerId="+req.session.userInfo.Id;
 				    	com.executeSQL(selectSQL1,function(err1,rows1){
 				    		res.render("productList",{
 				    			ordered:rows1,
-								Name:Name,
+								Name:req.session.userInfo.Name,
 								data:rows,
 								pageLength:52,
 								page:reqPage,

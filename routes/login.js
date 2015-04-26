@@ -7,11 +7,7 @@ router.post('/',function (req,res){
 	var password = req.body['password'];
 	var peername = req['client']['_peername'];
 
-	var dbPassword = "";
-	var dbName = "";
-	var dbId = "";
-	var dbCollectionSet = "";
-	var dbDiscount = "";
+	
 	var selectSQL = 'select * from user_info';
 	
 	com.executeSQL(selectSQL, function(err, rows) {
@@ -26,26 +22,17 @@ router.post('/',function (req,res){
 	    	{
 	    		if(LoginUserName == rows[i]['LoginUserName'])
 	    		{
-	    			dbPassword = String(rows[i]['Password']);
-	    			dbName = String(rows[i]['Name']);
-	    			dbId = String(rows[i]['Id']);
-	    			dbCollectionSet = String(rows[i]['CollectionSet']);
-	    			dbDiscount = rows[i]['Discount'];
+	    			req.session.userInfo = rows[i];
+	    			
 	    			flag = 1;
 	    			break;
 	    		}
 	    	}
 	    	
-			if(flag == 1 && password == dbPassword)
+			if(flag == 1 && password == req.session.userInfo['Password'])
 			{
 				
-				req.session.LoginUserName = LoginUserName;
-				req.session.Name = dbName;
-				req.session.Id = dbId;
-				req.session.CollectionSet = dbCollectionSet;
-				req.session.Discount = dbDiscount;
-				req.session.FinishRate = 0;
-				console.log(req.session);
+				
 				// console.log(req.session);
 				res.redirect('orderByStyle?page=1');
 				

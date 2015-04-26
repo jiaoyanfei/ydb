@@ -24,16 +24,12 @@ router.get('/', function(req, res, next) {
 	
 	console.log(peername);
 	
-	
-	var LoginUserName = req.session.LoginUserName;
-	var Name = req.session.Name;
-
 	if(com.isLogined(req.session) )
 	{
 		
 		var flag = 1;
 		var selectSQL = "select * from products where Id in ( select ProductId from all_orders where CustomerId = ";
-		selectSQL += req.session.Id;
+		selectSQL += req.session.userInfo.Id;
 		selectSQL += " and Invalid = 1 ) ";
 		if(reqBrand != undefined && reqBrand != "全部品牌")
 		{
@@ -166,7 +162,7 @@ router.get('/', function(req, res, next) {
 		    	
 				res.render("productList",{
 					ordered:myRows,
-					Name:Name,
+					Name:req.session.userInfo.Name,
 					data:myRows,
 					pageLength:52,
 					page:reqPage,

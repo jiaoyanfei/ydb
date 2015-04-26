@@ -11,9 +11,7 @@ router.get('/', function(req, res, next) {
 
 	if(reqPage == undefined || reqPage == "")
 		reqPage = 1;
-	
-	var LoginUserName = req.session.LoginUserName;
-	var Name = req.session.Name;
+
 	if(com.isLogined(req.session) )
 	{
 		
@@ -29,7 +27,7 @@ router.get('/', function(req, res, next) {
 		    else
 		    {
 				res.render("orderByMatch",{
-					Name:Name,
+					Name:req.session.userInfo.Name,
 					data:rows,
 					pageLength:52,
 					page:reqPage,

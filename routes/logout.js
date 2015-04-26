@@ -9,7 +9,7 @@ router.get('/',function (req,res){
 	if(com.isLogined(req.session) )
 	{
 		
-		req.session.LoginUserName = undefined;
+		req.session.userInfo = undefined;
 		res.redirect('/');	 
 	}
 	else

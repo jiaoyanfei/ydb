@@ -4,9 +4,6 @@ var com = require('./com');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	req.session.curPage = "goldAgent";
-	
-	var LoginUserName = req.session.LoginUserName;
-	var Name = req.session.Name;
 
 	if(com.isLogined(req.session) )
 	{
@@ -25,7 +22,7 @@ router.get('/', function(req, res, next) {
 		    	
 		    	// console.log(rows);
 		    	res.render('goldAgent',{
-					Name:Name,
+					Name:req.session.userInfo.Name,
 					data:rows,
 					curPage:req.session.curPage
 					

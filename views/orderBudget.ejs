@@ -28,15 +28,15 @@
 			<div class="budgetRight">
 			<table class="orderBudget">
 				<tr>
-					<td class="tdTextCenter bgLightblue"><input class="pageSelect" name="budgetID"> </td>
+					<td class="tdTextCenter bgLightblue"><input class="pageSelect" name="budgetType" value="<%=budgetType %>"> </td>
 					<td class="tdTextCenter bgLightblue">公司指引</td>
 					<td class="tdTextCenter bgLightblue">自定义预算</td>
 					<td class="tdTextCenter bgLightblue">预算占比</td>
 				</tr>
 				<tr>
 					<td class="tdTextCenter border">总订货金额</td>
-					<td class="tdTextCenter border"><%=userInfo[0]['GuideAmount'] %>万</td>
-					<td class="tdTextCenter border"><input value="<%=userInfo[0]['BudgetAmount'] %>万" style="text-align:center"></td>
+					<td class="tdTextCenter border"><%=userInfo['GuideAmount'] %>万</td>
+					<td class="tdTextCenter border"><input value="<%=userInfo['BudgetAmount'] %>" style="text-align:center">万</td>
 					<td class="tdTextCenter border">100%</td>
 					
 				</tr>
@@ -59,7 +59,7 @@
 						guidType = "PricezoneOrderGuide";
 						break;
 				}
-				var budget = userInfo[0][budgetType].split(',');
+				var budget = userInfo[budgetType].split(',');
 
 				var guide = guideInfo[0][guidType].split(',');
 				
@@ -69,7 +69,7 @@
 					var curBudgetPercent = budget[i][1];
 					budget[i][1] =  budget[i][1].substr(0,budget[i][1].length-1);
 					
-					var curBudget = Math.round(Number(budget[i][1])/100 * userInfo[0]['BudgetAmount']);
+					var curBudget = Math.round(Number(budget[i][1])/100 * userInfo['BudgetAmount']);
 					var curBudgetName = budget[i][0];
 					var curGuidePercent = "";
 					for(var j = 0;j<guide.length;j++)
@@ -87,14 +87,14 @@
 					
 					<td class="tdTextCenter border"><%=curBudgetName %></td>
 					<td class="tdTextCenter border"><%=curGuidePercent %></td>
-					<td class="tdTextCenter border"><%=curBudget %>万</td>
-					<td class="tdTextCenter border"><%=curBudgetPercent %></td>
+					<td class="tdTextCenter border"><input value="<%=curBudget %>" style="text-align:center">万</td>
+					<td class="tdTextCenter border"><input value="<%=curBudgetPercent %>" style="text-align:center"></td>
 					
 				</tr>
 				<% }%>
 				
 			</table>
-			<div id="save" style="text-align:center">保存</div>
+			<div id="save" style="text-align:center" onclick="submit()">保存</div>
 			</div>
 		</div>
 	</div>
@@ -102,3 +102,9 @@
 
 </body>
 </html>
+
+<script type="text/javascript">
+	function submit(){
+		alert('submit');
+	}
+</script>

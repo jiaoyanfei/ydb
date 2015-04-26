@@ -3,20 +3,15 @@ var router = express.Router();
 var com = require('./com');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-
-	
-
 	if(com.isLogined(req.session) )
 	{
 	
-		var userId = req.session.Id;
+		var userId = req.session.userInfo.Id;
 		var Id = req['query']['Id'];
 		var nextId = req['query']['nextId'];
 		var selectSQL ="select CollectionSet from user_info where Id =";
 			selectSQL += userId;
 			
-			
-
 		com.executeSQL(selectSQL, function(err, rows) {
 		    if (err)
 		    {
@@ -56,7 +51,7 @@ router.get('/', function(req, res, next) {
 				    }
 				    else
 				    {
-				    	req.session.CollectionSet = strCollection;
+				    	req.session.userInfo.CollectionSet = strCollection;
 				    	if(req.session.curPage == "collectionSet")
 				    	{
 				    		if(nextId != "orderByStyle")

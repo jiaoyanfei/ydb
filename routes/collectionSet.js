@@ -23,10 +23,6 @@ router.get('/', function(req, res, next) {
 		reqPage = 1;
 	
 	console.log(peername);
-	
-	
-	var LoginUserName = req.session.LoginUserName;
-	var Name = req.session.Name;
 
 	if(com.isLogined(req.session) )
 	{
@@ -90,7 +86,7 @@ router.get('/', function(req, res, next) {
     		selectSQL += "%'";
 		}
 
-		var ids = req.session.CollectionSet.split(',');
+		var ids = req.session.userInfo.CollectionSet.split(',');
     	if(ids.length != 0)
     	{
     		if(flag > 0)
@@ -163,17 +159,17 @@ router.get('/', function(req, res, next) {
 		
 		
 		
-    	if(req.session.CollectionSet != null && req.session.CollectionSet != "")		    	
+    	if(req.session.userInfo.CollectionSet != null && req.session.userInfo.CollectionSet != "")		    	
     	{
     		
 
 	    	com.executeSQL(selectSQL,function(err,rows){
 	    		
-	    		var selectSQL2 = "select * from all_orders where Invalid=0 and CustomerId="+req.session.Id;
+	    		var selectSQL2 = "select * from all_orders where Invalid=0 and CustomerId="+req.session.userInfo.Id;
 	    		com.executeSQL(selectSQL2,function(err2,rows2){
 					res.render("productList",{
 						ordered:rows2,
-						Name:Name,
+						Name:req.session.userInfo.Name,
 						data:rows,
 						pageLength:52,
 						page:reqPage,
@@ -195,7 +191,7 @@ router.get('/', function(req, res, next) {
 	    	
 	    	res.render("productList",{
 				ordered:[],
-				Name:Name,
+				Name: req.session.userInfo.Name,
 				data:[],
 				pageLength:52,
 				page:reqPage,

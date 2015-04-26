@@ -74,7 +74,7 @@
 				else if(guidType.substr(0,guidType.length-10) == "Mucai")
 					ordersRowType = guidType.substr(0,guidType.length-10);
 				
-				var budget = userInfo[0][budgetType].split(',');
+				var budget = userInfo[budgetType].split(',');
 				var guide = guideInfo[0][guidType].split(',');
 
 				budget.typeNum = 0;
@@ -89,11 +89,11 @@
 					budget[i].SKU = 0;
 					budget[i].num = 0;
 					budget[i].amount = 0;
-					console.log(budget[i][0]+"   "+orders[0][ordersRowType]);
+					//console.log(budget[i][0]+"   "+orders[0][ordersRowType]);
 					var tempOrders = [];
 					for(var j = 0;j<orders.length;j++)
 					{
-						if(budget[i][0] == orders[j][ordersRowType])
+						if(budget[i][0] == orders[j][ordersRowType] && orders != undefined)
 						{
 							
 							budget[i].SKU ++;
@@ -134,7 +134,7 @@
 					var curBudgetPercent = budget[i][1];
 					budget[i][1] =  budget[i][1].substr(0,budget[i][1].length-1);
 					
-					var curBudget = Math.round(Number(budget[i][1])/100 * userInfo[0]['BudgetAmount']);
+					var curBudget = Math.round(Number(budget[i][1])/100 * userInfo['BudgetAmount']);
 					var curName = budget[i][0];
 					var curGuidePercent = "";
 					var curGuide = "";
@@ -151,7 +151,7 @@
 						if(guide[j].split(':')[0] == budget[i][0] )
 						{
 							curGuidePercent = guide[j].split(':')[1];
-							curGuide = Math.round(Number(curGuidePercent.substr(0,curGuidePercent.length-1))/100 * userInfo[0]['GuideAmount']);
+							curGuide = Math.round(Number(curGuidePercent.substr(0,curGuidePercent.length-1))/100 * userInfo['GuideAmount']);
 							break;
 						}
 					}

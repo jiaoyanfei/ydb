@@ -24,7 +24,7 @@ exports.executeSQL =  function(SQL,callback){
 };
 
 exports.isLogined = function(session){
-	if(session.LoginUserName == undefined)
+	if(session.userInfo == undefined)
 	{
 		return false;
 	}

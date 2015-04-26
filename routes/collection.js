@@ -3,13 +3,10 @@ var router = express.Router();
 var com = require('./com');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-
-	
-
 	if(com.isLogined(req.session) )
 	{
 		
-		var userId = req.session.Id;
+		var userId = req.session.userInfo.Id;
 		var Id = req['query']['Id'];
 		var selectSQL ="select CollectionSet from user_info where Id =";
 			selectSQL += userId;
@@ -44,7 +41,7 @@ router.get('/', function(req, res, next) {
 				    else
 				    {
 				    	
-				    	req.session.CollectionSet = strCollection;
+				    	req.session.userInfo.CollectionSet = strCollection;
 				    	res.redirect('detail?Id='+Id);
 				    }
 		    

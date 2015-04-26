@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
 		insertSQL += req['body']['Id'];
 		insertSQL += '",';
 		insertSQL += '"';
-		insertSQL += req.session.Name;
+		insertSQL += req.session.userInfo.Name;
 		insertSQL += '",';
 		insertSQL += '"';
 		insertSQL += req['body']['comments'];
