@@ -94,7 +94,7 @@
 				<% }%>
 				
 			</table>
-			<div id="save" style="text-align:center" onclick="submit()">保存</div>
+			<div id="save" style="text-align:center" onclick="orderBudgetSubmit()">保存</div>
 			</div>
 		</div>
 	</div>
@@ -104,7 +104,18 @@
 </html>
 
 <script type="text/javascript">
-	function submit(){
-		alert('submit');
+	function orderBudgetSubmit(){
+
+
+		$.ajax({
+			type:'POST',
+			url:'orderBudgetSubmit',
+			data:'sgahifg';
+			error:function(err){alert(err);},
+			success:function(data,status){
+				alert(data);
+			}
+		});
+		
 	}
 </script>
