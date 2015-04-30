@@ -28,7 +28,7 @@
 			<div class="budgetRight">
 			<table class="orderBudget">
 				<tr>
-					<td class="tdTextCenter bgLightblue"><input class="pageSelect" name="budgetType" value="<%=budgetType %>"> </td>
+					<td class="tdTextCenter bgLightblue"><input id="budgetType" class="pageSelect"  value="<%=budgetType %>"> </td>
 					<td class="tdTextCenter bgLightblue">公司指引</td>
 					<td class="tdTextCenter bgLightblue">自定义预算</td>
 					<td class="tdTextCenter bgLightblue">预算占比</td>
@@ -36,7 +36,7 @@
 				<tr>
 					<td class="tdTextCenter border">总订货金额</td>
 					<td class="tdTextCenter border"><%=userInfo['GuideAmount'] %>万</td>
-					<td class="tdTextCenter border"><input value="<%=userInfo['BudgetAmount'] %>" style="text-align:center">万</td>
+					<td class="tdTextCenter border"><input id="bAmount" value="<%=userInfo['BudgetAmount'] %>" style="text-align:center" onchange="changeTotal()">万</td>
 					<td class="tdTextCenter border">100%</td>
 					
 				</tr>
@@ -85,10 +85,10 @@
 				%>
 				<tr>
 					
-					<td class="tdTextCenter border"><%=curBudgetName %></td>
+					<td class="tdTextCenter border" id="budgetName<%=i %>"><%=curBudgetName %></td>
 					<td class="tdTextCenter border"><%=curGuidePercent %></td>
-					<td class="tdTextCenter border"><input value="<%=curBudget %>" style="text-align:center">万</td>
-					<td class="tdTextCenter border"><input value="<%=curBudgetPercent %>" style="text-align:center"></td>
+					<td class="tdTextCenter border"><input id="b<%=i %>" value="<%=curBudget %>" style="text-align:center" onchange="changeValue(this)" >万</td>
+					<td class="tdTextCenter border"><input id="bp<%=i %>" value="<%=curBudgetPercent %>" style="text-align:center" onchange="changePercent(this)" ></td>
 					
 				</tr>
 				<% }%>
@@ -105,17 +105,82 @@
 
 <script type="text/javascript">
 	function orderBudgetSubmit(){
+		if(dataCheck() == true)
+		{
 
-
-		$.ajax({
-			type:'POST',
-			url:'orderBudgetSubmit',
-			data:'sgahifg';
-			error:function(err){alert(err);},
-			success:function(data,status){
-				alert(data);
+			var i = 0;
+			var data = "";
+			
+			while(document.getElementById('budgetName'+i) != undefined)
+			{
+				if(i!=0)
+					data += ',';
+				data += String(document.getElementById('budgetName'+i).innerHTML+":");
+				data += String(document.getElementById('bp'+i).value);
+				
+				i ++;
 			}
-		});
+			var BudgetAmount = document.getElementById('bAmount').value;
+			var budgetType = document.getElementById("budgetType").value;
+			$.ajax({
+				type:'POST',
+				url:'orderBudgetSubmit',
+				data:{budgetType:budgetType,data:data,BudgetAmount:BudgetAmount},
+				error:function(err){alert(err);},
+				success:function(data,status){
+					alert(data);
+				}
+			});
+		}
+		else
+		{
+			alert("数据设置不合理！");
+		}
+	}
+	function dataCheck(){
+		var bAmount = document.getElementById('bAmount').value;
+		var i = 0;
+		var bSum = 0;
+		var bPSum = 0;
+		while(document.getElementById('b'+i) != undefined)
+		{
+			bSum += Number(document.getElementById('b'+i).value);
+			//bPSum += ;
+			i ++;
+		}
 		
+		if(bSum != bAmount)
+			return false;
+		else
+			return true;
+	}
+	function changeValue(obj)
+	{
+		var id =  String(obj.id);
+		var value = document.getElementById(id).value;
+		id = id.substr(1,id.length-1);
+		var bAmount = document.getElementById('bAmount').value;
+		document.getElementById('bp'+id).value = Math.round(value/bAmount*100)+"%";
+		
+	}
+	function changePercent(obj)
+	{
+		var id =  String(obj.id);
+		var value = String(document.getElementById(id).value);
+		id = id.substr(2,id.length-1);
+		value = value.substr(0,value.length-1);
+		
+		var bAmount = document.getElementById('bAmount').value;
+		document.getElementById('b'+id).value = value*bAmount/100;
+	}
+	function changeTotal(){
+		var i = 0;
+		
+		while(document.getElementById('b'+i) != undefined)
+		{
+			var obj = {id:'bp'+i};
+			changePercent(obj);
+			i ++;
+		}
 	}
 </script>

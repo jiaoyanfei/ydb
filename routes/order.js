@@ -5,7 +5,7 @@ var com = require('./com');
 router.post('/', function(req, res, next) {
 	if(com.isLogined(req.session) )
 	{
-		
+		console.log(req.cookies);
 		var Id = req['body']['Id'];
 		var selectSQL ="select * from all_orders where ProductId =";
 			selectSQL += Id;

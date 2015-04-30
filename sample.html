@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>sample</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+    <style type="text/css">
+    body{
+    	font-family: Verdana 'Microsoft YaHei' sans-serif;
+    }
+    div.formTitle{
+    text-align: center;
+    font-size: 30px;
+    font-family: Verdana 'Microsoft YaHei' sans-serif;
+    }
+    div.lable{
+        display: inline-block;
+        font-size: 18px;
+        width: 50px;
+        text-align: right;
+        font-family: Verdana 'Microsoft YaHei' sans-serif;
+    }
+
+    
+    div.inputValue{
+        display: inline-block;
+        margin-left: 10px;
+    }
+    
+    input.location{
+        
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-bottom: solid 2px;
+		width: 90px;
+		text-align: center;
+		font-size: 16px;
+		font-family: Verdana 'Microsoft YaHei' sans-serif;
+		/*background-color: rgba(100, 128, 120, 0.43);*/
+		border-radius: 2px;
+    }
+    input.checkbox{
+        width: 50px;
+    }
+    div.tableHeader{
+        margin-left: 115px;
+        display: inline-block;
+    }
+    div.tableHead{
+        margin-top: 10px;
+    }
+    input.lookfor{
+        border: solid 2px;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+
+      width: 90px;
+      text-align: center;
+      font-size: 16px;
+      font-family: Verdana 'Microsoft YaHei' sans-serif;
+    }
+    div.lookfor{
+        display: inline-block;
+        margin-left: 10px;
+    }
+    div.headCol{
+        display: inline-block;
+        width: 90px;
+        margin-left: 10px;
+        text-align: center;
+    }
+    div.button{
+        text-align: center;
+        font-size: 20px;
+      width: 150px;
+      height: 30px;
+      border-radius: 5px;
+      background-color: whitesmoke;
+      border: none;
+      color: rgb(81, 6, 4);
+        display: inline-block;
+        font-family:sans-serif;
+    }
+    
+    div.button:hover{
+      background-color: rgba(81, 6, 4,0.4);
+      color:whitesmoke ;
+      cursor: pointer;
+    }
+    
+    div.add{
+        
+        margin-left: 80px;
+        
+    }
+    div.removeCur{
+        display: inline-block;
+        margin-left: 50px;
+    }
+    div.removeCur:hover{
+        cursor: pointer;
+        color:rgb(81, 6, 4);
+    }
+    div.input_more{
+        display: inline-block;
+    }
+    div.add:hover{
+        cursor: pointer;
+        color:rgb(81, 6, 4);
+    }
+    
+    .bootFont{
+     font-weight: bolder;
+
+     font-size: 30px;
+    }
+    div.buttons{
+        margin-top: 20px;
+        margin-left: 100px;
+    }
+    </style> 
+    
+</head> 
+<body>
+    
+    
+    <div class="global">
+   
+     <div class="formAera">
+
+      
+       <div class="formTitle"></div>
+                <div class="buttons">
+                    <div class="button" onclick="removeLocations()">删除选定行</div>
+                    <div class="button" onclick="submitSheet()">提交</div>
+                    <div class="button" onclick="undo()">撤销</div>
+                    <div class="button" onclick="redo()">重做</div>
+                </div>
+                <div class="tableHeader">
+                    <div id="lookfor"></div>
+                    <div id="tableHead" class="tableHead"></div>
+                </div>
+                <div class="add" onclick="addInputAhead([0,0,0,0,0,0,0])" title="add"><span class="bootFont" >+</span></div>
+       <div class="input_more" id="moreInput"></div>
+                
+     </div>
+
+        
+</div>
+
+</body>
+
+</html>
+ 
+<script type="text/javascript">
+    function clone(obj){
+        var tempStr = JSON.stringify(obj);
+        return JSON.parse(tempStr);
+    }
+    var RecordClass = function (){
+        this.head = 0;
+        this.tail = -1;
+        this.current = -1;
+        this.length = 0;
+        this.locations = [];
+        this.record = function(obj){
+
+            var tempObj = clone(obj);
+            if(this.current == this.length - 1 )
+            {
+                this.locations.push(tempObj);
+                this.tail ++;
+                this.current ++;
+                this.length ++;
+            }
+            else if(this.current < this.length - 1)
+            {
+                this.current ++;
+                this.tail = this.current;
+                this.locations[this.current] = tempObj;
+            }
+            return this.length;
+        };
+
+        this.undo = function(){
+            if(this.current > 0) this.current --;
+            return clone(this.locations[this.current]);
+        };
+
+        this.redo = function(){
+
+            if(this.current < this.tail) this.current ++;
+            return clone(this.locations[this.current]);
+        };
+    };
+    var locations = [];
+    var records = new RecordClass();
+    var lookforObj = {
+		id:"col0",
+		value:""
+    };
+    
+    
+    function splitData(data,status)
+    {
+        data = data.split(';');
+        
+        for(var i = 0;i<data.length;i++)
+        {
+            data[i] = data[i].split(',');
+        }
+        setHeader(data[0]);
+        for(var i = 1;i<data.length;i++)
+        {
+            addInputBehind(data[i]);
+        }
+        records.record(locations);
+    }
+    
+    function setHeader(data)
+    {
+        var lookforHTML = "";
+        for(var i = 0;i<data.length;i++)
+        {
+            lookforHTML += '<div class="lookfor"><input class="lookfor" onkeyup="updateData(this)" onchange="updateData(this)" id="col';
+            lookforHTML += i;
+            lookforHTML += '" placeholder="按';
+            lookforHTML += data[i];
+            lookforHTML += '查找"></div>';
+        }
+        document.getElementById('lookfor').innerHTML = lookforHTML;
+
+        var headHTML = "";
+        for(var i = 0;i<data.length;i++)
+        {
+            headHTML += '<div class="headCol">'
+            headHTML += data[i]; 
+            headHTML += '</div>';
+        }
+        document.getElementById('tableHead').innerHTML = headHTML;
+    }
+    
+    function addInputAhead(data)
+    {
+        try
+        {
+            locations.unshift({id:0,
+                checked:false,
+                data:data
+            });
+            updateData(lookforObj);
+            records.record(locations);
+        }
+        catch(e)
+        {
+            alert(e)
+        }
+        
+    }
+    function addInputBehind(data)
+    {
+        try
+        {
+            locations.push({id:locations.length,
+                checked:false,
+                data:data
+            });
+            updateData(lookforObj);
+        }
+        catch(e)
+        {
+            alert(e)
+        }
+        
+    }
+    function addRow(id,loc)
+    {
+        
+        var data = loc.data;
+        
+        var tempHTML = '<div class="inputBlock"><div class="lable"> ';
+        tempHTML += id;
+        tempHTML += ' : </div>';
+        var checked = '<div class="inputValue"><input type="checkbox" class="checkbox"  onchange="textChanged(this)" id="row';
+        checked += id;
+        checked += String(0);
+        if(loc['checked'] == true)
+        {
+            checked += '" checked="';
+            checked += loc['checked'];
+        }
+        checked += '""></div>';
+        tempHTML += checked;
+        for(var i = 0;i<data.length;i++)
+        {
+            var input = "";
+            input += '<div class="inputValue"><input type="text" class="location"  required="required" ';
+            input += ' id="row';
+            input += id;
+            input += String(i+1);
+            input += '" value="';
+            input += data[i];
+            input += '"></div>';
+
+
+            tempHTML += input;
+        }    
+        var del = '<div class="removeCur" onclick="removeLocation(';
+            del += "'";
+        del += id;
+        del += "'";
+        del += ')" title="delete this row"><span class="bootFont" >−</span></div>';
+        tempHTML += del;        
+
+        tempHTML += '</div>';
+        document.getElementById("moreInput").innerHTML += tempHTML;
+
+    }
+    function removeLocations()
+    {
+        for(var i=0;i< locations.length;i++)
+        {
+            if(locations[i]['checked'] == true)
+            {
+                locations.splice(i,1);
+                i = -1;
+                continue;
+            }
+        }
+        updateData(lookforObj);
+        records.record(locations);
+    }
+    function removeLocation(id)
+    {
+        for(var i=0;i< locations.length;i++)
+        {
+            if(locations[i]['id'] == id)
+            {
+                locations.splice(i,1);
+                break;
+            }
+        }
+        updateData(lookforObj);
+        records.record(locations);
+    }
+    function textChanged(obj)
+    {
+
+        var len = locations.length;
+        
+        try
+        {
+            for(var i = 0;i<len ; i++)
+            {
+                if("row"+String(i)+String(0) == obj.id)
+                {
+                    locations[i].checked = obj.checked;
+                    break;
+                }
+                else
+                {
+                    var flag = 0;
+                    for(var j = 0 ;j<locations[i].data.length;j++)
+                    {
+                        if("row"+String(i)+String(j+1) == obj.id)
+                        {
+                            locations[i].data[j] = obj.value;
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if(flag == 1)
+                    {
+                        break;
+                    }
+                }
+            }
+            records.record(locations);
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+    }
+
+    function lookfor(obj)
+    {
+        var type = Number(obj.id.substr(3,obj.id.length-1));
+        var value = obj.value;
+        var tempL = [];
+        for(var i = 0 ;i<locations.length;i++)
+        {
+            if( String(locations[i].data[type]).indexOf(value) >= 0 )
+            {
+            	tempL.push(locations[i]);
+            }
+        }
+
+        lookforObj = obj;
+        return tempL;
+    }
+    function updateData(obj)
+    {
+    	var data = lookfor(obj);
+        document.getElementById("moreInput").innerHTML = "";
+        for(var i=0;i< data.length;i++)
+        {
+        	if(obj.value == "")   data[i]['id'] = i;
+            	addRow(data[i]['id'],data[i]);
+        }
+    }
+    function dataCheck()
+    {
+
+        for(var i = 0; i< locations.length;i++)
+        {
+            for(var j = 0 ; j< locations[i].data.length;j++)
+            {
+                if(String(locations[i].data[j]).indexOf(',')>=0 || String(locations[i].data[j]).indexOf(';')>=0)
+                    return false;
+            }
+
+        }
+        return true;
+    }
+    function submitSheet()
+    {
+        try
+        {
+            if(dataCheck() == true)
+            {
+                var data = '';
+                for(var i = 0; i< locations.length;i++)
+                {
+                    if(i != 0)
+                        data += ';';
+                    for(var j = 0 ; j< locations[i].data.length;j++)
+                    {
+                    if(j != 0)
+                        data += ',';
+                    data += locations[i].data[j];
+                    }
+
+                }
+                
+                $.ajax({
+                    type:"post",
+                    url:"sheetData",
+                    data:{data:data},
+                    error:function(err){alert(err);},
+                    success:function(data,status){alert(data);}
+                });
+            }
+            else
+            {
+                alert('数据中出现  , 或 ; 等英文符号是不可提交！');
+            }
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+    }
+    function undo(){
+        try
+        {
+            locations = records.undo();
+            updateData(lookforObj);
+        }
+        catch(e)
+        {
+            alert(e);
+        }
+    }
+    function redo(){
+        locations = records.redo();
+        updateData(lookforObj);
+    }
+
+    // $(document).ready(function(){
+    //     $.ajax({
+    //         type:"get",
+    //         url:"sheetData",
+    //         data:{data:"I am foreground"},
+    //             error:function(err){alert(err);},
+    //             success:splitData
+    //     });
+    // });
+
+    // for test
+    var $ = {
+        ajax:  function(obj)
+        {
+            obj.success(obj.data.data,200);
+        }
+    }
+    splitData('学号,姓名,性别,寝室,身份证,寝室,地址;\
+1012500896,袁绍,男,冀州大营,25698714563214012x,14726583210,冀州;\
+1012589789,刘备,男,成都,111111111111111111,24736525478,四川成都;\
+1012589790,曹操,男,许昌,111111111111111112,24736525479,兖州许昌;\
+1012589791,大乔,女,建邺,111111111111111117,24736525483,江东建邺;\
+1012589792,小乔,女,建邺,111111111111111118,24736525484,江东建邺;\
+1012589793,貂蝉,女,洛阳,111111111111111119,24736525485,河南洛阳;\
+1012589794,荀彧,男,汝阳,111111111111111120,24736525486,汝南汝阳;\
+1012589795,张飞,男,冀州,25647898786541023x,25415689752,冀州;\
+1211654789,嫦娥,女,广寒宫,741741741741741741,54321987456,月球广寒宫;\
+1212300200,颜良,男,冀州大营,25698714563214012x,14726583210,冀州;\
+1212300205,王母,女,瑶池,888888888888888888,15757129999,瑶池;\
+1212300207,玉皇大帝,男,天庭,999999999999999999,66666666666,天庭;\
+1212300245,孙权,男,建邺,111111111111111113,24736525480,江东建邺;\
+1212300246,诸葛亮,男,卧龙岗,111111111111111114,24736525481,徐州琅琊阳都;\
+1212300247,庞统,男,荆州,111111111111111115,24736525482,荆州襄阳;\
+1212300248,徐庶,男,荆州,111111111111111116,24736525482,兖州许昌;\
+1212300249,赵云,男,常山,111111111111111117,24736525483,中原常山;\
+1234567890,孙策,男,建邺,11124563021478956X,14758965230,江东建邺;\
+1234567891,刘姥姥,女,大兴县,147258369125465865,58769865210,直隶;\
+1234567892,贾宝玉,男,荣国府,999999999988888888,78965452410,直隶;\
+1234567893,林黛玉,女,荣国府,999999999871456321,14578695412,直隶;\
+1234567894,贾雨村,男,荣国府,888888888899999999,14563214789,直隶;\
+1234567895,大和卓,男,伊犁军营,101010101010101010,12121212121,新疆伊犁;\
+1234567896,小和卓,男,伊犁军营,101010101010101011,12121212120,新疆伊犁',100);
+</script> 
